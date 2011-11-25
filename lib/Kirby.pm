@@ -1,31 +1,31 @@
 package Kirby;
 
 use LWP::Simple ();
-use XML::Parser;
+use XML::FeedPP;
 use FindBin;
 use Data::Dumper;
 
 sub new {
-    my %args = @_;
     my %defaults = {
-        db => undef,
+        db => "./test.db",
         rss => ("http://findnzb.net/rss/?q=alt.binaries.comics.dcp&sort=newest",),
-        comicsDir => undef,
+        comicsDir => "/export/Comics",
+        feedContents => [],
     };
-    my %params = (%defaults, %args);
-
-    bless \%params, shift;
+    my %params = %defaults;
+    return bless \%params, shift;
 }
 
 sub getRSS {
     $self = shift;
-    my $rss = XML::Parser->new(Style => 'Tree', ErrorContext => 2);
-    foreach ($self->{'rss'}) {
-        my $content = LWP::Simple::get($_);
-        my @tree = $rss->parse($content);
-        my @feed = $tree[1];
-        Dumper @feed;
-    };
+    # print Dumper $self;
+    # foreach my $source ($self->{'rss'}) {
+    #     print "URL: ", $source, "\n";
+        my $feed = XML::FeedPP->new( "http://findnzb.net/rss/?q=alt.binaries.comics.dcp&sort=newest" );
+        foreach ($feed->get_item()) {
+            push @{$self->{'feedContents'}}, "Title: ".$_->title();
+        };
+        # };
 }
 
 1;
