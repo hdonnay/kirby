@@ -29,8 +29,9 @@ $dbh->do(
 
 get '/' => sub {
     my $self = shift;
+    my $kirbObject = Kirby->new{ db => $db, comicsDir => '/export/Comics/', };
     $self->render(
-        text => "Kirby\n<pre>".Dumper(Kirby::getRSS)."</pre>",
+        text => "Kirby\n<pre>".$kirbObject->getRSS."</pre>",
     );
 };
 
