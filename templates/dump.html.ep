@@ -1,0 +1,6 @@
+% layout 'default';
+<ul>
+    % for my $line (@{$results}) {
+    <li><pre><%= $line %></pre></li>
+% }
+</ul>

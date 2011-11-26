@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kirby Comic Grabber</title>
+        <style type="text/css">
+            <%== include 'stylesheets/default', format => 'txt', handler => 'sass' %>
+        </style>
+    </head>
+    <body>
+        <div id="header">
+            %= include 'assets/header'
+        </div>
+        <div id="wrapper">
+            <div id="nav">
+                %= include 'assets/nav'
+            </div>
+            <div id="content">
+                <%= content %>
+            </div>
+        </div>
+        <div id="footer">
+            %= include 'assets/footer'
+        </div>
+    </body>
+</html>

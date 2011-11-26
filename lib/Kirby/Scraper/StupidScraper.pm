@@ -1,2 +1,0 @@
-package Kirby::Scraper::StupidScraper;
-
