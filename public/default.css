@@ -1,4 +1,7 @@
 body {
+  margin: 0;
+  padding-top: 1em;
+  padding-left: 1em;
   line-height: 1.5em;
   font-family: sans-serif; }
 
@@ -23,7 +26,6 @@ body {
 #nav {
   float: left;
   width: 200px;
-  margin-left: -100%;
   background: #C8FC98; }
 
 #footer {

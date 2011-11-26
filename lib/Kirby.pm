@@ -13,7 +13,6 @@ use Kirby::Scraper::SimpleScraper;
 sub startup {
     my $self = shift;
 
-    $self->plugin('sass_renderer');
     $self->secret('Kirby Default');
 
     my $r = $self->routes;
