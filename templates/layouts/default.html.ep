@@ -2,9 +2,7 @@
 <html>
     <head>
         <title>Kirby Comic Grabber</title>
-        <style type="text/css">
-            <%== include 'stylesheets/default', format => 'txt', handler => 'sass' %>
-        </style>
+        <link rel="stylesheet" href="/default.css" type="text/css" />
     </head>
     <body>
         <div id="header">
