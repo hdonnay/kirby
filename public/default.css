@@ -1,0 +1,37 @@
+body {
+  line-height: 1.5em;
+  font-family: sans-serif; }
+
+#header {
+  background: #EAEAEA;
+  height: 90px; }
+  #header h1 {
+    margin-left: 30%;
+    padding-top: 2em; }
+  #header img {
+    float: left;
+    height: 90px;
+    width: auto; }
+
+#wrapper {
+  float: left;
+  width: 100%; }
+
+#content {
+  margin-left: 200px; }
+
+#nav {
+  float: left;
+  width: 200px;
+  margin-left: -100%;
+  background: #C8FC98; }
+
+#footer {
+  clear: left;
+  width: 100%;
+  background: black;
+  color: #FFF;
+  text-align: center;
+  padding: 4px 0; }
+  #footer a {
+    color: #FFFF80; }
