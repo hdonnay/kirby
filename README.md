@@ -28,6 +28,7 @@ Kirby requires the following things to run, as best as I can remember:
  * [XML::FeedPP](http://search.cpan.org/perldoc?XML::FeedPP)
 
 And for development, these are probably also required:
+
  * Data::Dumper
  * [sass](http://sass-lang.com/)
 
