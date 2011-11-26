@@ -40,9 +40,15 @@ body {
 #footer {
     clear: left;
     width: 100%;
-    background: black;
-    color: #FFF;
-    text-align: center;
+    p {
+        background: black;
+        color: #FFF;
+        text: {
+            align: center;
+            transform: lowercase;
+            size: 6pt;
+        }
+    }
     padding: 4px 0;
     a { color: #FFFF80; }
 }

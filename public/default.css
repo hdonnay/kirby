@@ -31,9 +31,12 @@ body {
 #footer {
   clear: left;
   width: 100%;
-  background: black;
-  color: #FFF;
-  text-align: center;
   padding: 4px 0; }
+  #footer p {
+    background: black;
+    color: #FFF;
+    text-align: center;
+    text-transform: lowercase;
+    text-size: 6pt; }
   #footer a {
     color: #FFFF80; }
