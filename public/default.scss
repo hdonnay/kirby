@@ -37,6 +37,9 @@ $navWidth:  200px;
 }
 @mixin hoverize($accent, $base) {
     a:hover {
+        a {
+            color: $accent;
+        }
         color: $accent;
         background-color: $base;
     }
@@ -62,11 +65,6 @@ body {
     }
     font-family: sans-serif;
     @include accentize($red);
-    pre {
-        @include rebase($base03,$base02,$base01,$base00,$base0,$base1,$base2,$base3);
-        margin: 0em 0em 0em 0em;
-        padding: 1em 1em 1em 1em;
-    }
 }
 
 #header {
@@ -92,7 +90,18 @@ body {
 #content {
     margin-left: $navWidth;
     padding: 1em;
-    @include accentize($orange);
+    @include accentize($red);
+    pre {
+        @include rebase($base03,$base02,$base01,$base00,$base0,$base1,$base2,$base3);
+        margin: 0em 0em 0em 0em;
+        padding: 1em 1em 1em 1em;
+    }
+    h2,h3,h4,h5,h6 {
+        margin-bottom: 0em;
+        padding-left: 1em;
+        width: 90%;
+        border-bottom: solid 1px $red;
+    }
 }
 
 #nav {
@@ -111,8 +120,8 @@ body {
         text-transform: lowercase;
         padding: 0px;
         margin:1em 0px 1em 0px;
-        @include hoverize($red,$base03);
         @include accentize($base1);
+        @include hoverize($red,$base03);
         li {
             width: $navWidth;
             text-align: right;
@@ -128,7 +137,7 @@ body {
 
 #footer {
     @include rebase($base2,$base2,$base1,$base0,$base00,$base01,$base02,$base03);
-    @include hoverize($red,$base2);
+    @include hoverize($blue,$base2);
     clear: left;
     width: 100%;
     text: {
@@ -136,4 +145,5 @@ body {
         transform: lowercase;
         size: 6pt;
     }
+    margin-bottom: 1em;
 }

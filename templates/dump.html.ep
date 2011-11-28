@@ -1,6 +1,7 @@
 % layout 'default';
-<ul>
-    % for my $line (@{$results}) {
-    <li><pre><%= $line %></pre></li>
+<h3>SQL database dump:</h3>
+<pre>
+% for my $line (@{$results}) {
+<%= $line %>
 % }
-</ul>
+</pre>

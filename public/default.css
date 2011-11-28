@@ -1,6 +1,6 @@
 /* Part of Kirby.
    See the COPYING file that should have been distributed with this software.
-   http://github.com/hdonnay/kirby
+   https://raw.github.com/hdonnay/kirby/master/COPYING
 */
 /* Use Solarized for colors*/
 /* Some variables for magics*/
@@ -43,18 +43,6 @@ body {
     color: #dc322f; }
   body h1, body h2, body h3, body h4, body h5, body h6 {
     color: #dc322f; }
-  body pre {
-    background-color: #002b36;
-    color: #839496;
-    margin: 0em 0em 0em 0em;
-    padding: 1em 1em 1em 1em; }
-    body pre * {
-      color: #839496; }
-    body pre h1, body pre h2, body pre h3, body pre h4, body pre h5, body pre h6 {
-      color: #93a1a1;
-      border-color: #839496; }
-    body pre a, body pre a:active, body pre a:visited {
-      color: #93a1a1; }
 
 #header {
   height: 90px;
@@ -87,9 +75,26 @@ body {
   margin-left: 200px;
   padding: 1em; }
   #content a, #content a:active, #content a:visited, #content code.url {
-    color: #cb4b16; }
+    color: #dc322f; }
   #content h1, #content h2, #content h3, #content h4, #content h5, #content h6 {
-    color: #cb4b16; }
+    color: #dc322f; }
+  #content pre {
+    background-color: #002b36;
+    color: #839496;
+    margin: 0em 0em 0em 0em;
+    padding: 1em 1em 1em 1em; }
+    #content pre * {
+      color: #839496; }
+    #content pre h1, #content pre h2, #content pre h3, #content pre h4, #content pre h5, #content pre h6 {
+      color: #93a1a1;
+      border-color: #839496; }
+    #content pre a, #content pre a:active, #content pre a:visited {
+      color: #93a1a1; }
+  #content h2, #content h3, #content h4, #content h5, #content h6 {
+    margin-bottom: 0em;
+    padding-left: 1em;
+    width: 90%;
+    border-bottom: solid 1px #dc322f; }
 
 #nav {
   border-right-style: dotted;
@@ -103,13 +108,15 @@ body {
     text-transform: lowercase;
     padding: 0px;
     margin: 1em 0px 1em 0px; }
-    #nav ul a:hover {
-      color: #dc322f;
-      background-color: #002b36; }
     #nav ul a, #nav ul a:active, #nav ul a:visited, #nav ul code.url {
       color: #93a1a1; }
     #nav ul h1, #nav ul h2, #nav ul h3, #nav ul h4, #nav ul h5, #nav ul h6 {
       color: #93a1a1; }
+    #nav ul a:hover {
+      color: #dc322f;
+      background-color: #002b36; }
+      #nav ul a:hover a {
+        color: #dc322f; }
     #nav ul li {
       width: 200px;
       text-align: right;
@@ -126,7 +133,8 @@ body {
   width: 100%;
   text-align: center;
   text-transform: lowercase;
-  text-size: 6pt; }
+  text-size: 6pt;
+  margin-bottom: 1em; }
   #footer * {
     color: #657b83; }
   #footer h1, #footer h2, #footer h3, #footer h4, #footer h5, #footer h6 {
@@ -135,5 +143,7 @@ body {
   #footer a, #footer a:active, #footer a:visited {
     color: #586e75; }
   #footer a:hover {
-    color: #dc322f;
+    color: #268bd2;
     background-color: #eee8d5; }
+    #footer a:hover a {
+      color: #268bd2; }

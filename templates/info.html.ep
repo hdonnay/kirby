@@ -1,6 +1,6 @@
 % layout 'default';
-<h1>Kirby -- The Usenet Comic Grabber</h1>
-<p>Version <%= $Kirby::VERSION %></p>
+<h2>Kirby -- The Usenet Comic Grabber</h2>
+<p>Version <em><%= $Kirby::VERSION %></em></p>
 <p>Colors based on <a href="http://ethanschoonover.com/solarized">Solarized</a> by Ethan Schoonover. Thank you.</p>
 <p>Written in <a href="http://www.perl.org/">perl</a></p>
 <p>Released under the following license:</p>
