@@ -41,17 +41,22 @@ sub startup {
         my $q = $self->param('q') || undef;
         if ( defined $q ) {
             my $scrape = Kirby::Scraper::SimpleScraper->new( directory => '/export/Comics', );
-            $scrape->search( q => $q, );
-            $self->render(
-                text => "sucessful query to SimpleScraper",
+            my @result = $scrape->search( q => $q, );
+            $self->app->log->debug(Dumper @result);
+            $self->flash(
+                results => [ @result ],
+                message => "sucessful query to SimpleScraper"
             );
+            $self->redirect_to('search');
+        }
+        elsif ( defined 'flash' ) {
+            $self->render();
         }
         else {
-            $self->render(
-                text => "Something's wrong",
-            );
+            $self->flash(message => "unsuccessful query",);
+            $self->redirect_to('search');
         };
-    });
+    } => 'search');
 
     $r->any('/add'  => sub {
         my $self = shift;
