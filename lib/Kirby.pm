@@ -10,6 +10,8 @@ use Data::Dumper;
 use Kirby::Database;
 use Kirby::Scraper::SimpleScraper;
 
+our $VERSION = "0.01";
+
 sub startup {
     my $self = shift;
 
@@ -76,6 +78,8 @@ sub startup {
             );
         };
     });
+
+    $r->get('/info' => 'info');
 }
 
 1;
