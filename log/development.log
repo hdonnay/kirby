@@ -1,0 +1,81 @@
+[Mon Nov 28 15:28:09 2011] [info] Server listening (http://*:3000)
+[Mon Nov 28 15:28:21 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:28:21 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:28:21 2011] [debug] Rendering template "dump.html.ep".
+[Mon Nov 28 15:28:21 2011] [debug] Rendering template "layouts/default.html.ep".
+[Mon Nov 28 15:28:21 2011] [debug] Rendering template "assets/header.html.ep".
+[Mon Nov 28 15:28:21 2011] [debug] Rendering template "assets/nav.html.ep".
+[Mon Nov 28 15:28:21 2011] [debug] Rendering template "assets/footer.html.ep".
+[Mon Nov 28 15:28:21 2011] [debug] 200 OK (0.032136s, 31.118/s).
+[Mon Nov 28 15:28:23 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:28:23 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:28:23 2011] [debug] 200 OK (0.007939s, 125.960/s).
+[Mon Nov 28 15:29:07 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:29:07 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:29:07 2011] [debug] Rendering template "dump.html.ep".
+[Mon Nov 28 15:29:07 2011] [debug] Rendering template "layouts/default.html.ep".
+[Mon Nov 28 15:29:07 2011] [debug] Rendering template "assets/header.html.ep".
+[Mon Nov 28 15:29:07 2011] [debug] Rendering template "assets/nav.html.ep".
+[Mon Nov 28 15:29:07 2011] [debug] Rendering template "assets/footer.html.ep".
+[Mon Nov 28 15:29:07 2011] [debug] 200 OK (0.033038s, 30.268/s).
+[Mon Nov 28 15:29:09 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:29:09 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:29:09 2011] [debug] 200 OK (0.007857s, 127.275/s).
+[Mon Nov 28 15:32:27 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:32:27 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:32:27 2011] [debug] 200 OK (0.008603s, 116.239/s).
+[Mon Nov 28 15:33:14 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:33:14 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:33:14 2011] [debug] 200 OK (0.012334s, 81.077/s).
+[Mon Nov 28 15:34:19 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:34:19 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:34:19 2011] [debug] 200 OK (0.008108s, 123.335/s).
+[Mon Nov 28 15:35:12 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:35:12 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:35:12 2011] [debug] 200 OK (0.007914s, 126.358/s).
+[Mon Nov 28 15:35:24 2011] [debug] GET /info (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:35:24 2011] [debug] Rendering template "info.html.ep".
+[Mon Nov 28 15:35:24 2011] [debug] Rendering template "layouts/default.html.ep".
+[Mon Nov 28 15:35:24 2011] [debug] Rendering template "assets/header.html.ep".
+[Mon Nov 28 15:35:24 2011] [debug] Rendering template "assets/nav.html.ep".
+[Mon Nov 28 15:35:24 2011] [debug] Rendering template "assets/footer.html.ep".
+[Mon Nov 28 15:35:24 2011] [debug] 200 OK (0.026328s, 37.982/s).
+[Mon Nov 28 15:35:52 2011] [debug] GET /info (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:35:52 2011] [debug] 200 OK (0.004351s, 229.832/s).
+[Mon Nov 28 15:37:04 2011] [info] Server listening (http://*:3000)
+[Mon Nov 28 15:37:06 2011] [debug] GET /info (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:37:06 2011] [debug] Rendering template "info.html.ep".
+[Mon Nov 28 15:37:06 2011] [debug] Rendering template "layouts/default.html.ep".
+[Mon Nov 28 15:37:06 2011] [debug] Rendering template "assets/header.html.ep".
+[Mon Nov 28 15:37:06 2011] [debug] Rendering template "assets/nav.html.ep".
+[Mon Nov 28 15:37:06 2011] [debug] Rendering template "assets/footer.html.ep".
+[Mon Nov 28 15:37:06 2011] [debug] 200 OK (0.028643s, 34.913/s).
+[Mon Nov 28 15:37:34 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:37:34 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:37:34 2011] [debug] Rendering template "dump.html.ep".
+[Mon Nov 28 15:37:34 2011] [debug] Rendering template "layouts/default.html.ep".
+[Mon Nov 28 15:37:34 2011] [debug] Rendering template "assets/header.html.ep".
+[Mon Nov 28 15:37:34 2011] [debug] Rendering template "assets/nav.html.ep".
+[Mon Nov 28 15:37:34 2011] [debug] Rendering template "assets/footer.html.ep".
+[Mon Nov 28 15:37:34 2011] [debug] 200 OK (0.028499s, 35.089/s).
+[Mon Nov 28 15:46:55 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:46:55 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:46:55 2011] [debug] 200 OK (0.007845s, 127.470/s).
+[Mon Nov 28 15:48:00 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:48:00 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:48:00 2011] [debug] 200 OK (0.007811s, 128.025/s).
+[Mon Nov 28 15:49:43 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:49:43 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:49:43 2011] [debug] 200 OK (0.007794s, 128.304/s).
+[Mon Nov 28 15:50:36 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:50:36 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:50:36 2011] [debug] 200 OK (0.007800s, 128.205/s).
+[Mon Nov 28 15:52:06 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:52:06 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:52:06 2011] [debug] 200 OK (0.007851s, 127.372/s).
+[Mon Nov 28 15:52:07 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:52:07 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:52:07 2011] [debug] 200 OK (0.007855s, 127.307/s).
+[Mon Nov 28 15:52:08 2011] [debug] GET /dump (Mozilla/5.0 (X11; Linux i686 on x86_64; rv:7.0.1) Gecko/20100101 Firefox/7.0.1).
+[Mon Nov 28 15:52:08 2011] [debug] Dispatching callback.
+[Mon Nov 28 15:52:08 2011] [debug] 200 OK (0.007993s, 125.109/s).
