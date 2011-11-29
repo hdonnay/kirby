@@ -19,6 +19,10 @@ sub startup {
 
     my $r = $self->routes;
 
+    my $show = $r->route('/show')->to(controller => 'show');
+    $show->route('/issue/:id')->to(action => 'issue');
+    $show->route('/series/:title')->to(action => 'series');
+
     $r->any('/' => sub {
         my $self = shift;
         $self->stash(
@@ -84,7 +88,7 @@ sub startup {
         };
     });
 
-    $r->get('/info' => 'info');
+    $r->any('/info' => 'info');
 }
 
 1;

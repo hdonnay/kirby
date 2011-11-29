@@ -14,6 +14,6 @@
 % }
 % else {
 %= form_for search => begin
-<div id="search">Search: <%= text_field 'q'%><%= submit_button 'Search' %></div>
+<div class="search">Search: <%= text_field 'q'%><%= submit_button 'Search' %></div>
 %= end
 % }

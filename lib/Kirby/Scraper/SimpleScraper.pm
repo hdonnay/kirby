@@ -17,9 +17,9 @@ my $APIfomat = '&format=json';
 sub new {
     my $self = shift;
     my %args = @_;
-    my %defaults = {
+    my %defaults = (
         directory => ".",
-    };
+    );
     my %params = (%defaults, %args);
 
     return bless \%params, $self;
@@ -31,12 +31,12 @@ sub search {
     my %args = @_;
     my $qURL = $APIurl.'search/'.$APIkey.'&field_list=volume&query='.$args{q}.$APIfomat;
     my @results;
-    print $qURL;
+    print $qURL."\n";
 
     foreach (@{$ua->get($qURL)->res->json->{'volume'}}) {
         push @results, $_;
     }
-
+    print Dumper @results;
     return @results;
     # my $response = get( $qURL );
     # my $results = $json->decode($response);
