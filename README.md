@@ -26,7 +26,6 @@ Kirby requires the following things to run, as best as I can remember:
  * [ORLite](http://search.cpan.org/perldoc?ORLite)
  * [LWP::Simple](http://search.cpan.org/perldoc?LWP::Simple)
  * [XML::FeedPP](http://search.cpan.org/perldoc?XML::FeedPP)
- * [Config::General](http://search.cpan.org/perldoc?Config::General)
 
 And for development, these are probably also required:
 
@@ -41,9 +40,9 @@ Installation
 
 I assume you're installing this for development, because of the early stage this is in. The process should go something like this:
 
-    % sudo aptitude install liborlite-perl liblwp-simple-perl libxml-feedpp-perl libconfig-general-perl
+    % sudo aptitude install liborlite-perl liblwp-simple-perl libxml-feedpp-perl
     % sudo sh -c "curl -L cpanmin.us | perl - Mojolicious"
-    % git clone https://hdonnay@github.com/hdonnay/kirby.git
+    % git clone https://github.com/hdonnay/kirby.git
 
 Then,
 
