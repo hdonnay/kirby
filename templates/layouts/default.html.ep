@@ -13,6 +13,9 @@
                 %= include 'assets/nav'
             </div>
             <div id="content">
+                % if (my $message = flash 'message') {
+                <h3 class="popup"> <%= $message %> </h3>
+                % }
                 <%= content %>
             </div>
         </div>

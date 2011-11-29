@@ -1,8 +1,4 @@
 % layout 'default';
-% if (my $message = flash 'message') {
-<h3 class="popup"> <%= $message %> </h3>
-% }
-
 % if (my $results = flash 'results') {
 <h3>Query Results:</h3>
 <pre>

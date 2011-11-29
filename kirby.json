@@ -1,0 +1,6 @@
+{
+    "foo"               : "bar",
+    "comicsDirectory"   : "/export/Comics",
+    "listenPort"        : 3000,
+    "mode"              : "debug"
+}

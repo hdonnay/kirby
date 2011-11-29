@@ -1,0 +1,7 @@
+% layout 'default';
+<h3>Config dump:</h3>
+<pre>
+% foreach (sort keys %{$config}) {
+<%= $_ %> : <%= config $_ %>
+% }
+</pre>
