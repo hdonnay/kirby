@@ -2,6 +2,10 @@
 <h3>SQL database dump:</h3>
 <pre>
 % for my $line (@{$results}) {
-<%= $line %>
-% }
+%   my $print = "";
+%   foreach (sort keys %{$line}) {
+%       $print .= ${$line}{$_}."\t| ";
+%   };
+<%= $print %>
+% };
 </pre>

@@ -33,12 +33,10 @@ sub startup {
 
     $r->any('/dump' => sub {
         my $self = shift;
-        my @result;
-        Kirby::Database::Kirby->iterate( sub {
-                push @result, $_->series." | ".$_->issue;
-            } );
-        $self->stash(results => [ @result ],);
-    } => 'dump');
+
+        $self->stash(results => \@{Kirby::Database::Kirby->select()},);
+        return $self->render('dump');
+    });
 
     $r->any('/search' => sub {
         my $self = shift;
