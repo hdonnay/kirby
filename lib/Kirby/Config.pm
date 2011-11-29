@@ -6,30 +6,25 @@ package Kirby::Config;
 use strict;
 use warnings;
 
-use Config::General;
+use Mojo::Base 'Mojolicious::Controller';
 
-sub new {
+sub dump {
     my $self = shift;
 
-    my %args = @_;
-    my %defaults = {
-        dir => ".",
-    };
-    my %params = (%defaults, %args);
-    my @path = qw(/etc/kirby/ ~/.kirby);
-    push @path, %params{'dir'};
+    return $self->render('config/dump');
+}
 
-    my $conf = Config::General->new(
-        -ConfigFile => "kirby.rc",
-        -LowerCaseNames => 1,
-        -ConfigPath => \@path,
-        -MergeDuplicateOptions => 1,
-        -AutoTrue => 1,
-    );
+sub reload {
+    my $self = shift;
 
-    my $params{'conf'} = $conf->getall();
+    $self->app->defaults(config => $self->app->plugin('JSONConfig', (file => 'kirby.json',)));
+    return $self->flash(message => "Config Reloaded",)->redirect_to('/config/dump');
+}
 
-    return bless \%params, $self;
+sub insert {
+    my $self = shift;
+
+    return $self->render('config/dump');
 }
 
 1;

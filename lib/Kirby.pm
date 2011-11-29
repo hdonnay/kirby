@@ -15,13 +15,18 @@ our $VERSION = "0.01";
 sub startup {
     my $self = shift;
 
-    $self->secret('Kirby Default');
 
     my $r = $self->routes;
 
     my $show = $r->route('/show')->to(controller => 'show');
         $show->route('/issue/:id')->to(action => 'issue');
         $show->route('/series/:title')->to(action => 'series');
+    $r->route('/dump')->to(controller => 'show', action => 'dump');
+
+    my $conf = $r->route('/config')->to(controller => 'config');
+        $conf->route('/load')->to(action => 'reload');
+        $conf->route('/dump')->to(action => 'dump');
+        $conf->route('/load')->via('POST')->to(action => 'insert');
 
     $r->any('/' => sub {
         my $self = shift;
@@ -30,8 +35,6 @@ sub startup {
         );
         $self->render('index');
     });
-
-    $r->route('/dump')->to(controller => 'show', action => 'dump');
 
     $r->any('/search' => sub {
         my $self = shift;
@@ -82,6 +85,9 @@ sub startup {
     });
 
     $r->any('/info' => 'info');
+
+    $self->secret('Kirby Default');
+    $self->defaults(config => $self->plugin('JSONConfig'), );
 }
 
 1;
