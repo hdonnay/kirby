@@ -2,9 +2,9 @@
 <h3>SQL database dump:</h3>
 <pre>
 % for my $line (@{$results}) {
-%   my $print = "";
+%   my $print = "| ";
 %   foreach (sort keys %{$line}) {
-%       $print .= ${$line}{$_}."\t| ";
+%       $print .= (${$line}{$_} || "")."\t| ";
 %   };
 <%= $print %>
 % };

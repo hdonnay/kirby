@@ -20,8 +20,8 @@ sub startup {
     my $r = $self->routes;
 
     my $show = $r->route('/show')->to(controller => 'show');
-    $show->route('/issue/:id')->to(action => 'issue');
-    $show->route('/series/:title')->to(action => 'series');
+        $show->route('/issue/:id')->to(action => 'issue');
+        $show->route('/series/:title')->to(action => 'series');
 
     $r->any('/' => sub {
         my $self = shift;
@@ -29,14 +29,9 @@ sub startup {
             head => "Kirby",
         );
         $self->render('index');
-    } => 'index');
-
-    $r->any('/dump' => sub {
-        my $self = shift;
-
-        $self->stash(results => \@{Kirby::Database::Kirby->select()},);
-        return $self->render('dump');
     });
+
+    $r->route('/dump')->to(controller => 'show', action => 'dump');
 
     $r->any('/search' => sub {
         my $self = shift;
