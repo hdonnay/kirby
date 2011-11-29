@@ -37,16 +37,21 @@ html, .light {
   text-color: #b58900;
   background: -moz-linear-gradient(top, #002b36 0%, #073642);
   background: -webkit-gradient(linear, left top, left bottom, from(#002b36), to(#073642));
-  border-radius: 10px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
   border: 1px solid #586e75;
   -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5), inset 0px 0px 1px rgba(255, 255, 255, 0.5);
   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5), inset 0px 0px 1px rgba(255, 255, 255, 0.5); }
 
+.search {
+  text-align: center;
+  border: 1px solid #586e75;
+  margin: 1em, 1em, 1em, 1em; }
+
 html * {
   color-profile: sRGB;
-  rendering-intent: auto; }
+  rendering-intent: auto;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px; }
 
 a {
   text-decoration: none; }
@@ -117,7 +122,7 @@ body {
     padding-right: 1em; }
 
 #nav {
-  border-right-style: dotted;
+  border-right-style: solid;
   border-right-width: 1px;
   border-right-color: #586e75;
   line-height: 1.5em;
@@ -133,8 +138,7 @@ body {
     #nav ul h1, #nav ul h2, #nav ul h3, #nav ul h4, #nav ul h5, #nav ul h6 {
       color: #93a1a1; }
     #nav ul a:hover {
-      color: #dc322f;
-      background-color: #002b36; }
+      color: #dc322f; }
       #nav ul a:hover a {
         color: #dc322f; }
     #nav ul li {
@@ -145,6 +149,8 @@ body {
       display: block;
       width: 190px;
       padding-right: 10px; }
+    #nav ul a:hover {
+      background-color: #002b36; }
 
 #footer {
   background-color: #eee8d5;
@@ -163,7 +169,6 @@ body {
   #footer a, #footer a:active, #footer a:visited {
     color: #586e75; }
   #footer a:hover {
-    color: #268bd2;
-    background-color: #eee8d5; }
+    color: #268bd2; }
     #footer a:hover a {
       color: #268bd2; }
