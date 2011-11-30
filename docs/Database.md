@@ -14,7 +14,9 @@ fetchBook
 The fetchBook helper takes in a row id and returns a block of html
 populated with information from the database.
 
-Thsi package provides the following methods:
+---
+
+This package provides the following methods:
 
 search
 ------
