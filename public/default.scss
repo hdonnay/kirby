@@ -53,8 +53,8 @@ html, .light { @include rebase($base3,$base2,$base1,$base0,$base00,$base01,$base
         right: 2em;
     }
     padding: {
-        top: 1em;
-        bottom: 1em;
+        top: 0.4em;
+        bottom: 0.4em;
     }
     text-align: center;
     text-color: $yellow;
@@ -78,8 +78,63 @@ html, .light { @include rebase($base3,$base2,$base1,$base0,$base00,$base01,$base
 .search {
     text-align: center;
     border: 1px solid $base01;
-    margin: 1em, 1em, 1em, 1em;
+    margin: 1em 1em 1em 1em;
+    padding: 1em 1em 1em 1em;
 }
+
+#book {
+    @include rebase($base03,$base02,$base01,$base00,$base0,$base1,$base2,$base3);
+    @include accentize($red);
+    display: block;
+    margin: {
+        left: 1em;
+        right: 1em;
+        top: 0.5em;
+        bottom: 0.5em;
+    }
+    padding: {
+        top: 0.5em;
+        bottom: 0.5em;
+        left: 1em;
+        right: 1em;
+    }
+    img {
+        float: left;
+        display: block;
+        height: 150px;
+        margin: 1em 1em 1em 1em;
+    }
+    h4,h5 {
+        margin-left: 150px;
+    }
+    h4 {
+        border-bottom: 1px solid $base01;
+        padding-bottom: 0.5em;
+        margin-bottom: 0.5em;
+    }
+    h5 {
+        border-top: 1px solid $base01;
+        padding-top: 0.5em;
+        margin-top: 0.5em;
+    }
+    p {
+        display: block;
+        margin: {
+            top:1em;
+            bottom: 1em;
+            left: 150px;
+            right: 1em;
+        }
+        padding: {
+            top:1em;
+            bottom:1em;
+            left:1em;
+            right:1em;
+        }
+        background-color: $base02;
+    }
+}
+
 html * {
     color-profile: sRGB;
     rendering-intent: auto;
@@ -154,6 +209,9 @@ body {
     float: left;
     width: $navWidth;
     ul {
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
         list-style-type: none;
         text-transform: lowercase;
         padding: 0px;

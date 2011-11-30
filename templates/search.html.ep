@@ -1,15 +1,14 @@
 % layout 'default';
-% if (my $results = flash 'results') {
-<h3>Query Results:</h3>
+ % if (my $results = flash 'results') {
+ %   foreach (@$results) {
+        <%== displayBook $_ %>
+ %   }
 <pre>
-% for my $line (@{$results}) {
-<%= $line %>
-% }
 <%= dumper $results %>
 </pre>
-% }
-% else {
-%= form_for search => begin
+ % }
+ % else {
+ %= form_for search => begin
 <div class="search">Search: <%= text_field 'q'%><%= submit_button 'Search' %></div>
-%= end
-% }
+ %= end
+ % }

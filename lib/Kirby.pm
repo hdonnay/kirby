@@ -7,16 +7,16 @@ use Mojo::Base 'Mojolicious';
 use FindBin;
 use Data::Dumper;
 
-use Kirby::Database;
 use Kirby::Scraper::SimpleScraper;
+#use Kirby::Database;
 
 our $VERSION = "0.01";
 
 sub startup {
     my $self = shift;
 
-
     my $r = $self->routes;
+    $self->plugin('Kirby::Database');
 
     my $show = $r->route('/show')->to(controller => 'show');
         $show->route('/issue/:id')->to(action => 'issue');
@@ -40,12 +40,11 @@ sub startup {
         my $self = shift;
         my $q = $self->param('q') || undef;
         if ( defined $q ) {
-            my $scrape = Kirby::Scraper::SimpleScraper->new( directory => '/export/Comics', );
-            my @result = $scrape->search( q => $q, );
-            $self->app->log->debug(Dumper @result);
+            my @results = Kirby::Database->search(q => $q);
+
             $self->flash(
-                results => [ @result ],
-                message => "sucessful query to SimpleScraper"
+                message => "Results:",
+                results => \@results,
             );
             $self->redirect_to('search');
         }
@@ -66,7 +65,7 @@ sub startup {
         my $title = $self->param('title') || 'N/A';
         my $description = $self->param('desc') || 'N/A';
         if ( (defined $series) and (defined $volume) and (defined $issue) ) {
-            my $comicID = Kirby::Database::Kirby->create(
+            my $comicID = Kirby::SQL::Kirby->create(
                 series => $series,
                 volume => $volume,
                 issue  => $issue,

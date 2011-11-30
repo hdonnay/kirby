@@ -25,7 +25,7 @@ sub new {
     return bless \%params, $self;
 }
 
-sub search {
+sub remoteSearch {
     my $self = shift;
 
     my %args = @_;
@@ -33,13 +33,15 @@ sub search {
     my @results;
     print $qURL."\n";
 
-    foreach (@{$ua->get($qURL)->res->json->{'volume'}}) {
+    my $raw = $ua->get($qURL)->res->json->{'volume'};
+    foreach (@{$raw}) {
         push @results, $_;
     }
-    print Dumper @results;
+    print Dumper $raw;
     return @results;
     # my $response = get( $qURL );
     # my $results = $json->decode($response);
 }
+
 
 1;
