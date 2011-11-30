@@ -18,7 +18,7 @@ sub register {
             my $self = shift;
 
             my $id = shift || undef;
-            my %item = %{Kirby::Database->fetch(id => $id)};
+            my %item = Kirby::Database->fetch(id => $id);
 
             print "===\n".Dumper(%item)."\n===\n";
             if (defined $item{'failed'}) {
@@ -67,8 +67,7 @@ sub fetch {
             title  => $book->title,
             description => $book->description,
         );
-        print Dumper(%hash);
-        return \%hash;
+        return %hash;
     };
 }
 
