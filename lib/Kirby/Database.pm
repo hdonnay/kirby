@@ -20,9 +20,8 @@ sub register {
             my $id = shift || undef;
             my %item = Kirby::Database->fetch(id => $id);
 
-            print "===\n".Dumper(%item)."\n===\n";
             if (defined $item{'failed'}) {
-                return "<h3 class='popup'>%$item{'failed'}</h3>";
+                return "<h3 class='popup'>$item{'failed'}</h3>";
             }
             else {
                 return "<div id='book'><img src='$item{'pic'}' /><h4>$item{'series'}&nbsp;#$item{'issue'}</h4><h5>$item{'title'}</h5><br /><p>$item{'description'}</p></div>";
@@ -42,7 +41,14 @@ sub search {
     my %params = (%defaults, %args);
 
     Kirby::SQL::Kirby->iterate('where series = ? order by id', $params{'q'}, sub {
-            print "$params{'q'}\n";
+            push @results, $_->id;
+        }
+    );
+    Kirby::SQL::Kirby->iterate('where title = ? order by id', $params{'q'}, sub {
+            push @results, $_->id;
+        }
+    );
+    Kirby::SQL::Kirby->iterate('where description = ? order by id', $params{'q'}, sub {
             push @results, $_->id;
         }
     );
