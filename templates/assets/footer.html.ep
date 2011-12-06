@@ -1,3 +1,5 @@
-<a href="/info">Kirby -- The Usenet Comic Grabber
-<br />
-Copyright 2011, released under a modified MIT license.</a>
+<%= link_to '/info' => begin %>
+Kirby -- The Usenet Comic Grabber
+%= tag 'br'
+Copyright 2011, released under a modified MIT license.
+<% end %>

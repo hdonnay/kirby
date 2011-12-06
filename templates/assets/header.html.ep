@@ -1,2 +1,2 @@
-<a href="/"><img src="/images/header.png" \></a>
-<h1>Kirby</h1>
+<%= link_to '/' => begin %><%= image '/images/header.png' %><% end %>
+%= tag h1 => 'Kirby'

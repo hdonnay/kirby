@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Kirby Comic Grabber</title>
-        <link rel="stylesheet" href="/default.css" type="text/css" />
+        %= stylesheet '/default.css'
     </head>
     <body>
         <div id="header">

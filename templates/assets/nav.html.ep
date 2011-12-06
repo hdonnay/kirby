@@ -1,6 +1,14 @@
-<ul>
-    <li><a href="/search">Search</a></li>
-    <li><a href="/dump">Dump</a></li>
-    <li><a href="#">Two</a></li>
-    <li><a href="#">Three</a></li>
-</ul>
+<%= tag ul => begin %>
+    <%= tag li => begin %>
+        <%= link_to '/search' => begin %>Search<% end %>
+    <% end %>
+    <%= tag li => begin %>
+        <%= link_to '/dump' => begin %>Dump<% end %>
+    <% end %>
+    <%= tag li => begin %>
+        <%= link_to '#' => begin %>Two<% end %>
+    <% end %>
+    <%= tag li => begin %>
+        <%= link_to '#' => begin %>Three<% end %>
+    <% end %>
+<% end %>
