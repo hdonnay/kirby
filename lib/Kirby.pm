@@ -28,13 +28,7 @@ sub startup {
         $conf->route('/dump')->to(action => 'dump');
         $conf->route('/load')->via('POST')->to(action => 'insert');
 
-    $r->any('/' => sub {
-        my $self = shift;
-        $self->stash(
-            head => "Kirby",
-        );
-        $self->render('index');
-    });
+    $r->any('/')->to('index#index');
 
     $r->any('/search' => sub {
         my $self = shift;
