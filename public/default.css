@@ -51,14 +51,15 @@ html, .light {
   background-color: #002b36;
   color: #839496;
   display: block;
+  height: 300px;
   margin-left: 1em;
   margin-right: 1em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
-  padding-left: 1em;
-  padding-right: 1em; }
+  padding-left: 0.5em;
+  padding-right: 0.5em; }
   #book * {
     color: #839496; }
   #book h1, #book h2, #book h3, #book h4, #book h5, #book h6 {
@@ -73,10 +74,12 @@ html, .light {
   #book img {
     float: left;
     display: block;
-    height: 150px;
-    margin: 1em 1em 1em 1em; }
-  #book h4, #book h5 {
-    margin-left: 150px; }
+    height: 300px;
+    border-radius: 0px;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px; }
+  #book h4, #book h5, #book p {
+    margin-left: 205px; }
   #book h4 {
     border-bottom: 1px solid #586e75;
     padding-bottom: 0.5em;
@@ -89,7 +92,6 @@ html, .light {
     display: block;
     margin-top: 1em;
     margin-bottom: 1em;
-    margin-left: 150px;
     margin-right: 1em;
     padding-top: 1em;
     padding-bottom: 1em;
