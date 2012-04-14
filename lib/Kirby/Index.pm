@@ -7,22 +7,16 @@ use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious::Controller';
-use XML::FeedPP;
-
-my $rssFeed = 'http://www.comicvine.com/feeds/new_comics/';
 
 sub index {
     my $self = shift;
 
-    $self->render('index');
-}
-
-sub updateRSS{
-    my $self = shift;
-
-    my $feed = XML::FeedPP->new($rssFeed);
     $self->app->log->debug($feed);
 
+    $self->stash(feed => { title => "Title" });
+    $self->stash(feed => { date => "today" });
+
+    $self->render('index');
 }
 
 1;

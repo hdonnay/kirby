@@ -77,7 +77,7 @@ sub startup {
         };
     });
 
-    $r->any('/info' => 'info');
+    $r->any('/about' => 'about');
 
     $self->secret('Kirby Default');
     $self->defaults(config => $self->plugin('JSONConfig'), );

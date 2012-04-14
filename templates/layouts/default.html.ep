@@ -3,24 +3,27 @@
     <head>
         <title>Kirby Comic Grabber</title>
         %= stylesheet '/css/bootstrap.css'
+        <style type="text/css">
+          body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+          }
+          .sidebar-nav {
+            padding: 9px 0;
+          }
+        </style>
     </head>
     <body>
-        <div id="header">
-            %= include 'assets/header'
-        </div>
-        <div id="wrapper">
-            <div id="nav">
+        %= include 'assets/header'
+        <div class="container-fluid">
+            <div class="row-fluid">
                 %= include 'assets/nav'
-            </div>
-            <div id="content">
-                % if (my $message = flash 'message') {
-                <h3 class="popup"> <%= $message %> </h3>
-                % }
+                <div class="span9">
                 <%= content %>
+                </div>
             </div>
-        </div>
-        <div id="footer">
-            %= include 'assets/footer'
+            <hr>
+            <footer><%= include 'assets/footer'%></footer>
         </div>
     </body>
 </html>
