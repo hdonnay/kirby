@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Kirby Comic Grabber</title>
-        %= stylesheet '/default.css'
+        %= stylesheet '/css/bootstrap.css'
     </head>
     <body>
         <div id="header">

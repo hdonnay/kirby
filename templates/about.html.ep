@@ -1,9 +1,9 @@
 % layout 'default';
 <h2>Kirby -- The Usenet Comic Grabber</h2>
 <p>Version <em><%= $Kirby::VERSION %></em></p>
-<p>Colors based on <a href="http://ethanschoonover.com/solarized">Solarized</a> by Ethan Schoonover. Thank you.</p>
+<p>Based on Twitter's Bootstrap</p>
 <p>Written in <a href="http://www.perl.org/">perl</a></p>
-<p><img src="/images/whiskey-powered.png" /></p>
+<p><img src="/img/whiskey-powered.png" /></p>
 <p>Released under the following license:</p>
 <pre>
 Copyright (C) 2011 by Henry Donnay
