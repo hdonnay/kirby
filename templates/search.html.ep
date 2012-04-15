@@ -1,4 +1,4 @@
-% layout 'default';
+% layout 'search';
  % if (my $results = flash 'results') {
  %   foreach (@$results) {
         <%== displayBook $_ %>
