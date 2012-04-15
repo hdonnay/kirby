@@ -1,0 +1,8 @@
+    <ul class="nav nav-tabs">
+        </li>
+        % foreach my $li (sort keys %{$tabs}) {
+            % if ($li ne 'name') {
+        <li><a href="<%= $tabs->{$li} %>" data-toggle="tab"><%= $li %></a></li>
+            % };
+        % };
+    </ul>

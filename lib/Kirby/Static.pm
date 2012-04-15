@@ -13,7 +13,7 @@ sub index {
 
     $self->stash(navbar => {
             name => "Kirby",
-            index => "/",
+            config => "/config",
             search => "/search",
         });
 

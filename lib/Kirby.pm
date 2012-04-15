@@ -4,11 +4,11 @@ use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious';
-use Mojo::UserAgent;
-use FindBin;
-use Data::Dumper;
+#use Mojo::UserAgent;
+#use FindBin;
+#use Data::Dumper;
 
-use Kirby::Scraper::SimpleScraper;
+#use Kirby::Scraper::SimpleScraper;
 #use Kirby::Database;
 
 our $VERSION = "0.01";
@@ -26,8 +26,8 @@ sub startup {
 
     my $conf = $r->route('/config')->to(controller => 'config');
         $conf->route('/')->to(action => 'dump');
-        $conf->route('/load')->to(action => 'reload');
         $conf->route('/dump')->to(action => 'dump');
+        $conf->route('/load')->to(action => 'reload');
         $conf->route('/load')->via('POST')->to(action => 'insert');
 
     $r->any('/')->to('static#index');
@@ -62,38 +62,42 @@ sub startup {
         };
     } => 'search');
 
-    $r->any('/add'  => sub {
-        my $self = shift;
-        my $series = $self->param('series') || undef;
-        my $volume = $self->param('vol') || undef;
-        my $issue = $self->param('issue') || undef;
-        my $title = $self->param('title') || 'N/A';
-        my $description = $self->param('desc') || 'N/A';
-        if ( (defined $series) and (defined $volume) and (defined $issue) ) {
-            my $comicID = Kirby::SQL::Kirby->create(
-                series => $series,
-                volume => $volume,
-                issue  => $issue,
-                title  => $title,
-                description => $description,
-            );
-            $self->render(
-                text => "Inserted $series $volume $issue",
-            );
-        }
-        else {
-            $self->render(
-                text => "Missing required fields",
-            );
-        };
-    });
+#    $r->any('/add'  => sub {
+#        my $self = shift;
+#        my $series = $self->param('series') || undef;
+#        my $volume = $self->param('vol') || undef;
+#        my $issue = $self->param('issue') || undef;
+#        my $title = $self->param('title') || 'N/A';
+#        my $description = $self->param('desc') || 'N/A';
+#        if ( (defined $series) and (defined $volume) and (defined $issue) ) {
+#            my $comicID = Kirby::SQL::Kirby->create(
+#                series => $series,
+#                volume => $volume,
+#                issue  => $issue,
+#                title  => $title,
+#                description => $description,
+#            );
+#            $self->render(
+#                text => "Inserted $series $volume $issue",
+#            );
+#        }
+#        else {
+#            $self->render(
+#                text => "Missing required fields",
+#            );
+#        };
+#    });
 
     my $backend = $r->route('/backend')->to(controller => 'backend');
         $backend->route('/rss')->via('GET')->to(action => 'rssDump');
         $backend->route('/rss')->via('POST')->to(action => 'rssRefresh');
+        $backend->route('/add')->via('GET')->to(action => 'lastAddState');
+        $backend->route('/add')->via('POST')->to(action => 'add');
 
     $self->secret('Kirby Default');
     $self->defaults(config => $self->plugin('JSONConfig'), );
+    $self->defaults(navbar => undef );
+    $self->defaults(tabs => undef );
 }
 
 1;
