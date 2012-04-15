@@ -11,7 +11,11 @@ use Mojo::Base 'Mojolicious::Controller';
 sub index {
     my $self = shift;
 
-    $self->stash(feed => { title => "Title" });
+    $self->stash(navbar => {
+            name => "Kirby",
+            index => "/",
+            search => "/search",
+        });
     $self->stash(feed => { date => "today" });
 
     $self->render('index');

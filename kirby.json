@@ -2,5 +2,6 @@
     "foo"               : "baz",
     "comicsDirectory"   : "/export/Comics",
     "listenPort"        : 3000,
-    "mode"              : "debug"
+    "mode"              : "debug",
+    "wmapikey"          : "fda89ace04f5226217fb61f7d4658a2d728e9e08"
 }
