@@ -1,4 +1,4 @@
-% layout 'default';
+% layout 'search';
 <h3>SQL database dump:</h3>
 <pre>
 % for my $line (@{$results}) {
