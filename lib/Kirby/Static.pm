@@ -16,6 +16,12 @@ sub index {
             config => "/config",
             search => "/search",
         });
+    $self->stash(tabs => [
+            ["first tab", "#"],
+            ["second tab", "#"],
+            ["third tab", "#"],
+            ["fourth tab", "#"],
+        ]);
 
     $self->render('index');
 }

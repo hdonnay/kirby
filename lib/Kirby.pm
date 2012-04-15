@@ -16,6 +16,10 @@ our $VERSION = "0.01";
 sub startup {
     my $self = shift;
 
+    $self->flash(error => "test");
+    $self->flash(alert => "test");
+    $self->flash(notice => "test");
+
     my $r = $self->routes;
     $self->plugin('Kirby::Database');
 

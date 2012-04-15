@@ -1,8 +1,10 @@
     <ul class="nav nav-tabs">
         </li>
-        % foreach my $li (sort keys %{$tabs}) {
-            % if ($li ne 'name') {
-        <li><a href="<%= $tabs->{$li} %>" data-toggle="tab"><%= $li %></a></li>
+        % foreach my $pair (@{$tabs}) {
+            % if ($pair->[0] eq $tabs->[0]->[0]) { # set the first tab active
+        <li class="active"><a href="<%= $pair->[1] %>" data-toggle="tab"><%= $pair->[0] %></a></li>
+            % } else {
+        <li><a href="<%= $pair->[1] %>" data-toggle="tab"><%= $pair->[0] %></a></li>
             % };
         % };
     </ul>

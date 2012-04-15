@@ -26,6 +26,12 @@
                     % if (defined $tabs) {
                     %= include 'assets/tabs'
                     % }
+                    % if (flash 'error') {
+                    <div class="alert alert-error fade in">
+                        <a class="close" data-dismiss="alert">:(</a>
+                        %= flash 'error'
+                    </div>
+                    % }
                     % if (flash 'alert') {
                     <div class="alert fade in">
                         <a class="close" data-dismiss="alert">×</a>
@@ -33,8 +39,8 @@
                     </div>
                     % }
                     % if (flash 'notice') {
-                    <div class="alert-success fade in">
-                        <!--<a class="close" data-dismiss="alert">×</a>-->
+                    <div class="alert alert-success fade in">
+                        <a class="close" data-dismiss="alert">ok</a>
                         %= flash 'notice'
                     </div>
                     % }
@@ -45,7 +51,7 @@
             <footer><%= include 'assets/footer'%></footer>
         </div>
         <script src="<%= url_for('js/jquery.js')->to_abs %>"></script>
-        % if ((flash 'notice') or (flash 'alert')) {
+        % if ((flash 'notice') or (flash 'alert') or (flash 'error')) {
         <script src="<%= url_for('js/bootstrap-alert.js')->to_abs %>" /></script>
         <script> $(function () { $('.alert').alert() }) </script>
         % }
