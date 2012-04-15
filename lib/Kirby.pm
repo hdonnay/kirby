@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious';
+use Mojo::UserAgent;
 use FindBin;
 use Data::Dumper;
 
@@ -78,6 +79,17 @@ sub startup {
     });
 
     $r->any('/about' => 'about');
+
+
+    $r->websocket('/ws/rss' => sub {
+        my $self = shift;
+
+        my $ua = Mojo::UserAgent->new;
+        $ua->get('http://www.comicvine.com/feeds/new_comics' => sub {
+            my ($ua, $tx) = @_;
+            $self->send($tx->res->rss);
+        });
+    });
 
     $self->secret('Kirby Default');
     $self->defaults(config => $self->plugin('JSONConfig'), );

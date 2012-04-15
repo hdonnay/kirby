@@ -1,4 +1,20 @@
 % layout 'default';
 <div class="hero-block">
+    <script text='text/javascript'>
+        var wsocket = window.WebSocket || window.MozWebSocket;
+        var ws = new wsocket('<%= url_for('/ws/rss')->to_abs %>');
+        window.setInterval(function() {
+            ws.send('Hello Mojo!');
+        }, 1000);
+        ws.onopen = function () {
+          window.alert('Connection opened');
+        };
+
+        ws.send('ehlo');
+
+        ws.onmessage = function(event) {
+            document.body.innerHTML += event.data + '<br/>';
+        };
+    </script>
     <br \>
 </div>
