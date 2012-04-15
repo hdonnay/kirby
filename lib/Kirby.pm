@@ -33,12 +33,20 @@ sub startup {
 
     $r->any('/search' => sub {
         my $self = shift;
+
+        $self->stash(navbar => {
+            name => "Kirby",
+            index => "/",
+            search => "/search", },
+            action => 'search'
+        );
+
         my $q = $self->param('q') || undef;
         if ( defined $q ) {
             my @results = Kirby::Database->search(q => $q);
 
             $self->flash(
-                message => "Results:",
+                notice => "Results:",
                 results => \@results,
             );
             $self->redirect_to('search');
@@ -47,7 +55,7 @@ sub startup {
             $self->render();
         }
         else {
-            $self->flash(message => "unsuccessful query",);
+            $self->flash(alert => "unsuccessful query",);
             $self->redirect_to('search');
         };
     } => 'search');

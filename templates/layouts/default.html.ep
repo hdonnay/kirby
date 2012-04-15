@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Kirby Comic Grabber</title>
         %= stylesheet '/css/bootstrap.css'
@@ -19,11 +19,26 @@
             <div class="row-fluid">
                 %= include 'assets/nav'
                 <div class="span9">
-                <%= content %>
+                    % if (flash 'alert') {
+                    <div class="alert fade in">
+                        <a class="close" data-dismiss="alert">×</a>
+                        %= flash 'alert'
+                    </div>
+                    % }
+                    % if (flash 'notice') {
+                    <div class="alert-success fade in">
+                        <!--<a class="close" data-dismiss="alert">×</a>-->
+                        %= flash 'notice'
+                    </div>
+                    % }
+                    <%= content %>
                 </div>
             </div>
             <hr>
             <footer><%= include 'assets/footer'%></footer>
         </div>
+        <script src="<%= url_for('js/jquery.js')->to_abs %>"></script>
+        <script src="<%= url_for('js/bootstrap-alert.js')->to_abs %>"></script>
+        <script src="<%= url_for('js/application.js')->to_abs %>"></script>
     </body>
 </html>

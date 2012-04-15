@@ -11,6 +11,8 @@ use Mojo::Base 'Mojolicious::Controller';
 sub index {
     my $self = shift;
 
+    $self->flash(alert => "Testing alert");
+
     $self->stash(navbar => {
             name => "Kirby",
             index => "/",
