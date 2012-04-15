@@ -1,20 +1,21 @@
 % layout 'default';
-<div class="hero-block">
-    <script text='text/javascript'>
-        var wsocket = window.WebSocket || window.MozWebSocket;
-        var ws = new wsocket('<%= url_for('rss')->to_abs %>');
-        window.setInterval(function() {
-            ws.send('Hello Mojo!');
-        }, 1000);
-        ws.onopen = function () {
-          window.alert('Connection opened');
-        };
+<script text='text/javascript'>
+    var wsocket = window.WebSocket || window.MozWebSocket;
+    var ws = new wsocket('<%= url_for('rss')->to_abs %>');
 
+    ws.onmessage = function(event) {
+        document.getElementById('output').innerHTML += event.data;
+    };
+    ws.onopen = function () {
+        ws.send('fetch');
         ws.send('ehlo');
+    };
+    window.setInterval(function() {
+        ws.send('ping');
+    }, 10000);
+</script>
 
-        ws.onmessage = function(event) {
-            document.body.innerHTML += event.data + '<br/>';
-        };
-    </script>
-    <br \>
+<div class="hero-unit">
+    <div id="output">
+    </div>
 </div>

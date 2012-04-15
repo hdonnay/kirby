@@ -16,7 +16,6 @@ sub index {
             index => "/",
             search => "/search",
         });
-    $self->stash(feed => { date => "today" });
 
     $self->render('index');
 }

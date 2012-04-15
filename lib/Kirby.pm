@@ -80,17 +80,7 @@ sub startup {
 
     $r->any('/about' => 'about');
 
-
-    $r->websocket('/rss' => sub {
-        my $self = shift;
-
-        my $ua = Mojo::UserAgent->new;
-        my $tx = $ua->get('http://www.comicvine.com/feeds/new_comics');
-
-        $self->on(message => sub {
-            $self->send($tx->res->rss);
-        });
-    });
+    $r->websocket('/rss')->to(controller => 'sockets', action => 'rss');
 
     $self->secret('Kirby Default');
     $self->defaults(config => $self->plugin('JSONConfig'), );
