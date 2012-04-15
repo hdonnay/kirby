@@ -11,8 +11,6 @@ use Mojo::Base 'Mojolicious::Controller';
 sub index {
     my $self = shift;
 
-    $self->app->log->debug($feed);
-
     $self->stash(feed => { title => "Title" });
     $self->stash(feed => { date => "today" });
 
