@@ -81,7 +81,7 @@ sub startup {
     $r->any('/about' => 'about');
 
 
-    $r->websocket('/ws/rss' => sub {
+    $r->websocket('/rss' => sub {
         my $self = shift;
 
         my $ua = Mojo::UserAgent->new;

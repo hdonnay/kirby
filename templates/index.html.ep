@@ -2,7 +2,7 @@
 <div class="hero-block">
     <script text='text/javascript'>
         var wsocket = window.WebSocket || window.MozWebSocket;
-        var ws = new wsocket('<%= url_for('/ws/rss')->to_abs %>');
+        var ws = new wsocket('<%= url_for('rss')->to_abs %>');
         window.setInterval(function() {
             ws.send('Hello Mojo!');
         }, 1000);
