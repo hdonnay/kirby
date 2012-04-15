@@ -85,8 +85,9 @@ sub startup {
         my $self = shift;
 
         my $ua = Mojo::UserAgent->new;
-        $ua->get('http://www.comicvine.com/feeds/new_comics' => sub {
-            my ($ua, $tx) = @_;
+        my $tx = $ua->get('http://www.comicvine.com/feeds/new_comics');
+
+        $self->on(message => sub {
             $self->send($tx->res->rss);
         });
     });
