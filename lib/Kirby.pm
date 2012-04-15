@@ -25,11 +25,13 @@ sub startup {
     $r->route('/dump')->to(controller => 'show', action => 'dump');
 
     my $conf = $r->route('/config')->to(controller => 'config');
+        $conf->route('/')->to(action => 'dump');
         $conf->route('/load')->to(action => 'reload');
         $conf->route('/dump')->to(action => 'dump');
         $conf->route('/load')->via('POST')->to(action => 'insert');
 
-    $r->any('/')->to('index#index');
+    $r->any('/')->to('static#index');
+    $r->any('/about')->to('static#about');
 
     $r->any('/search' => sub {
         my $self = shift;
@@ -86,9 +88,9 @@ sub startup {
         };
     });
 
-    $r->any('/about' => 'about');
-
-    $r->websocket('/rss')->to(controller => 'sockets', action => 'rss');
+    my $backend = $r->route('/backend')->to(controller => 'backend');
+        $backend->route('/rss')->via('GET')->to(action => 'rssDump');
+        $backend->route('/rss')->via('POST')->to(action => 'rssRefresh');
 
     $self->secret('Kirby Default');
     $self->defaults(config => $self->plugin('JSONConfig'), );

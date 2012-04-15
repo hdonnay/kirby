@@ -1,12 +1,13 @@
 # Part of Kirby.
 # See the COPYING file that should have been distributed with this software.
 # https://raw.github.com/hdonnay/kirby/master/COPYING
-package Kirby::Sockets;
+package Kirby::Backend;
 
 use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious::Controller';
+use Mojo::JSON;
 use XML::FeedPP;
 
 sub rss {
@@ -24,6 +25,16 @@ sub rss {
             $feed = XML::FeedPP->new('http://www.comicvine.com/feeds/new_comics');
      }
     });
+}
+
+sub rssDump {
+    my $self = shift;
+
+}
+
+sub rssRefresh {
+    my $self = shift;
+
 }
 
 1;
