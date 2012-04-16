@@ -7,13 +7,13 @@ use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious::Controller';
-use Kirby::SQL;
+use Kirby::Database;
 
 sub issue {
     my $self = shift;
 
     if (my $id = $self->stack('$id')) {
-        $self->stack(issue => Kirby::SQL::Kirby->load($id),);
+        $self->stack(issue => Kirby::Database::Comics->load($id),);
         return $self->render('show/issue');
     }
     else {
@@ -25,7 +25,7 @@ sub series {
     my $self = shift;
 
     if (my $series = $self->stash('series')) {
-        $self->stack(series => Kirby::SQL::Kirby->select('where series = ?', $series),);
+        $self->stack(series => Kirby::Database::Comics->select('where series = ?', $series),);
         return $self->render('show/series');
     }
     else {
@@ -33,11 +33,11 @@ sub series {
     };
 }
 
-sub dump {
+sub all {
     my $self = shift;
 
-    $self->stash(results => \@{Kirby::SQL::Kirby->select()},);
-    return $self->render('show/dump');
+    $self->stash(results => [Kirby::Database::Comics->select('order by id')],);
+    $self->render('show/all');
 }
 
 1;

@@ -37,4 +37,9 @@ sub rssRefresh {
 
 }
 
+sub dbQuery {
+    my $self = shift;
+
+}
+
 1;

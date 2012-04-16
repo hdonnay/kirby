@@ -9,24 +9,20 @@ use Mojo::Base 'Mojolicious';
 #use Data::Dumper;
 
 #use Kirby::Scraper::SimpleScraper;
-#use Kirby::Database;
 
 our $VERSION = "0.01";
 
 sub startup {
     my $self = shift;
 
-    $self->flash(error => "test");
-    $self->flash(alert => "test");
-    $self->flash(notice => "test");
 
     my $r = $self->routes;
-    $self->plugin('Kirby::Database');
+    #$self->plugin('Kirby::Database');
 
     my $show = $r->route('/show')->to(controller => 'show');
         $show->route('/issue/:id')->to(action => 'issue');
         $show->route('/series/:title')->to(action => 'series');
-    $r->route('/dump')->to(controller => 'show', action => 'dump');
+        $show->route('/all')->to(action => 'all');
 
     my $conf = $r->route('/config')->to(controller => 'config');
         $conf->route('/')->to(action => 'dump');
