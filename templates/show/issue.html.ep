@@ -1,0 +1,4 @@
+% layout 'default';
+% if (defined $result) {
+% #do shit
+% }

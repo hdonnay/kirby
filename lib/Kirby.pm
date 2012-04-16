@@ -35,7 +35,7 @@ sub startup {
 
     # backend things.
     # 'search' is a ui for backend/dbQuery
-    $r->any('/search')-to(controller => 'backend', action => 'dbQuery');
+    $r->any('/search' => 'search');
     my $backend = $r->route('/backend')->to(controller => 'backend');
         $backend->route('/rss')->via('GET')->to(action => 'rssDump');
         $backend->route('/rss')->via('POST')->to(action => 'rssRefresh');
