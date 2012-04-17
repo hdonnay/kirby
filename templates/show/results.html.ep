@@ -1,0 +1,27 @@
+% layout 'default';
+<h3>results dump:</h3>
+<pre>
+Description ID matches
+======================
+% for my $id (@{flash 'desc'}) {
+<%= $id %>
+% };
+
+Titles ID matches
+=================
+% for my $id (@{flash 'titles'}) {
+<%= $id %>
+% };
+
+Series ID matches
+==================
+% for my $id (@{flash 'series'}) {
+<%= $id %>
+% };
+
+available ID matches
+====================
+% for my $id (@{flash 'available'}) {
+<%= $id %>
+% };
+</pre>
