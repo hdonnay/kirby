@@ -3,25 +3,25 @@
 <pre>
 Description ID matches
 ======================
-% for my $id (@{flash 'desc'}) {
+% for my $id (@{$desc}) {
 <%= $id %>
 % };
 
 Titles ID matches
 =================
-% for my $id (@{flash 'titles'}) {
+% for my $id (@{$titles}) {
 <%= $id %>
 % };
 
 Series ID matches
 ==================
-% for my $id (@{flash 'series'}) {
+% for my $id (@{$series}) {
 <%= $id %>
 % };
 
 available ID matches
 ====================
-% for my $id (@{flash 'available'}) {
+% for my $id (@{$available}) {
 <%= $id %>
 % };
 </pre>

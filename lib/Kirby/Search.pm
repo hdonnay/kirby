@@ -14,7 +14,7 @@ sub search {
 
     my $query = $self->param('q');
 
-    $self->flash(desc => [Kirby::Database::Comics->select('id WHERE description LIKE ?', $query)],
+    $self->stash(desc => [Kirby::Database::Comics->select('id WHERE description LIKE ?', $query)],
                  titles => [Kirby::Database::Comics->select('id WHERE title LIKE ?',$query)],
                  series => [Kirby::Database::Comics->select('id WHERE series LIKE ?',$query)],
                  available => [Kirby::Database::Nzb->select('id WHERE date(release_date) = date(?) or series LIKE ?', $query, $query),],);
