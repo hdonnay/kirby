@@ -47,6 +47,7 @@ sub startup {
     $self->defaults(config => $self->plugin(JSONConfig => {file => 'data/config.json'}) );
     $self->defaults(navbar => undef );
     $self->defaults(tabs => undef );
+    $self->defaults(usenetRSS => "http://findnzb.net/rss/?group=alt.binaries.pictures.comics.dcp&sort=newest" );
 }
 
 1;
