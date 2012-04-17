@@ -3,10 +3,10 @@
         <ul class="nav nav-list">
             <li class="nav-header"><%= $navbarName %></li>
             % foreach my $pair (@{$navbar}) {
-                % if ($pair->[0] eq $controller) { # set the first tab active
-            <li class="active"><a href="<%= $pair->[1] %>" data-toggle="tab"><%= $pair->[0] %></a></li>
+                % if (lc($pair->[0]) eq lc($controller)) {
+                <li class="active"><a href="<%= $pair->[1] %>"><%= $pair->[0] %></a></li>
                 % } else {
-                <li><a href="<%= $pair->[1] %>" data-toggle="tab"><%= url_for($pair->[0]) %></a></li>
+                <li><a href="<%= $pair->[1] %>"><%= url_for($pair->[0]) %></a></li>
                 % };
             % };
         </ul>
