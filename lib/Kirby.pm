@@ -45,7 +45,8 @@ sub startup {
 
     $self->secret('Kirby Default');
     $self->defaults(config => $self->plugin(JSONConfig => {file => 'data/config.json'}) );
-    $self->defaults(navbar => undef );
+    $self->defaults(navbar => [ ["Manage", "manage"], ["History", "history"], ["Config", "config"] ]);
+    $self->defaults(navbarName => "Choose Your Destiny...");
     $self->defaults(tabs => undef );
     $self->defaults(usenetRSS => "http://findnzb.net/rss/?group=alt.binaries.pictures.comics.dcp&sort=newest" );
 }

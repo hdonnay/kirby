@@ -11,11 +11,6 @@ use Mojo::Base 'Mojolicious::Controller';
 sub index {
     my $self = shift;
 
-    $self->stash(navbar => {
-            name => "Kirby",
-            config => "/config",
-            search => "/search",
-        });
     $self->stash(tabs => [
             ["first tab", "#"],
             ["second tab", "#"],
@@ -29,13 +24,13 @@ sub index {
 sub about {
     my $self = shift;
 
-    $self->stash(navbar => {
-            name => "This project uses:",
-            Bootstrap => "http://twitter.github.com/bootstrap",
-            Comicvine => "http://api.comicvine.com/",
-            Mojolicious => "http://mojolicio.us",
-            Perl => "http://www.perl.org",
-        });
+    $self->stash(navbarName => "This project uses:");
+    $self->stash(navbar => [
+            ["Bootstrap", "http://twitter.github.com/bootstrap"],
+            ["Comicvine", "http://api.comicvine.com/"],
+            ["Mojolicious", "http://mojolicio.us"],
+            ["Perl", "http://www.perl.org"],
+        ]);
 
     $self->render('about');
 }
