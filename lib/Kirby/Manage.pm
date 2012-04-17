@@ -1,7 +1,7 @@
 # Part of Kirby.
 # See the COPYING file that should have been distributed with this software.
 # https://raw.github.com/hdonnay/kirby/master/COPYING
-package Kirby::Show;
+package Kirby::Manage;
 
 use strict;
 use warnings;

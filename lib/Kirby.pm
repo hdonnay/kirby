@@ -16,15 +16,17 @@ sub startup {
     my $r = $self->routes;
 
     # Static boring stuff
-    $r->any('/')->to(controller => 'static', action => 'index');
-    $r->any('/about')->to(controller => 'static', action => 'about');
+    my $static = $r->route('/')->to(controller => 'static');
+        $static->any('/')->to(action => 'index');
+        $static->any('/about')->to(action => 'about');
 
     # Displaying db items
-    my $show = $r->route('/show')->to(controller => 'show');
-        $show->route('/issue/:id')->to(action => 'issue');
-        $show->route('/series/:title')->to(action => 'series');
-        $show->route('/results')->to(action => 'results');
-        $show->route('/all')->to(action => 'all');
+    my $manage = $r->route('/manage')->to(controller => 'manage');
+        $manage->route('/')->to(action => 'all');
+        $manage->route('/issue/:id')->to(action => 'issue');
+        $manage->route('/series/:title')->to(action => 'series');
+        #$show->route('/results')->to(action => 'results');
+        $manage->route('/all')->to(action => 'all');
 
     # configuration shit
     my $conf = $r->route('/config')->to(controller => 'config');
@@ -33,10 +35,9 @@ sub startup {
         $conf->route('/load')->to(action => 'reload');
         $conf->route('/load')->via('POST')->to(action => 'insert');
 
-    # backend things.
-    # 'search' is a ui for backend/dbQuery
     $r->route('/search')->to(controller => 'search', action => 'search');
 
+    # backend things.
     my $backend = $r->route('/backend')->to(controller => 'backend');
         $backend->route('/rss')->via('GET')->to(action => 'rssDump');
         $backend->route('/rss')->via('POST')->to(action => 'rssRefresh');
