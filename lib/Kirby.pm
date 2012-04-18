@@ -44,6 +44,7 @@ sub startup {
         $backend->route('/add')->via('GET')->to(action => 'lastAddState');
         $backend->route('/add')->via('POST')->to(action => 'add');
         $backend->route('/dbQuery')->via('GET')->to(action => 'dbQuery');
+        $backend->route('/cover.jpg')->to(action => 'cover');
 
     $self->secret('Kirby Default');
     $self->defaults(config => $self->plugin(JSONConfig => {file => 'data/config.json'}) );

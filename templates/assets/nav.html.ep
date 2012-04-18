@@ -6,7 +6,7 @@
                 % if (lc($pair->[0]) eq lc($controller)) {
                 <li class="active"><a href="<%= $pair->[1] %>"><%= $pair->[0] %></a></li>
                 % } else {
-                <li><a href="<%= $pair->[1] %>"><%= url_for($pair->[0]) %></a></li>
+                <li><a href="<%= url_for($pair->[1]) %>"><%= $pair->[0] %></a></li>
                 % };
             % };
         </ul>

@@ -8,6 +8,7 @@ use warnings;
 
 use Mojo::Base 'Mojolicious::Controller';
 use Mojo::JSON;
+use Kirby::Database;
 use XML::FeedPP;
 
 sub rss {
@@ -42,4 +43,10 @@ sub dbQuery {
 
 }
 
+sub cover {
+    my $self = shift;
+
+    my $id = $self->param('id');
+    $self->render(data => Kirby::Database::Comics->select('cover WHERE id = ?', $id), format => 'image/jpeg');
+}
 1;

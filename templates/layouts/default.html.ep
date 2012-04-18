@@ -51,13 +51,13 @@
             <footer><%= include 'assets/footer'%></footer>
         </div>
         <script src="<%= url_for('js/jquery.js')->to_abs %>"></script>
-        % if ((flash 'notice') or (flash 'alert') or (flash 'error')) {
         <script src="<%= url_for('js/bootstrap-alert.js')->to_abs %>" /></script>
-        <script> $(function () { $('.alert').alert() }) </script>
-        % }
-        % if (defined $tabs) {
         <script src="<%= url_for('js/bootstrap-tab.js')->to_abs %>" /></script>
-        <script> $(function () { $('.tabs a:last').tab('show') }) </script>
-        % }
+        <script>
+            $(function () {
+                $('.alert').alert()
+                $('.tabs a:last').tab('show')
+            })
+        </script>
     </body>
 </html>
