@@ -1,20 +1,4 @@
 % layout 'default';
-<script text='text/javascript'>
-    var wsocket = window.WebSocket || window.MozWebSocket;
-    var ws = new wsocket('<%= url_for('rss')->to_abs %>');
-
-    ws.onmessage = function(event) {
-        document.getElementById('output').innerHTML += event.data;
-    };
-    ws.onopen = function () {
-        ws.send('fetch');
-        ws.send('ehlo');
-    };
-    window.setInterval(function() {
-        ws.send('ping');
-    }, 10000);
-</script>
-
 <div class="hero-unit">
     <div id="output">
     </div>
