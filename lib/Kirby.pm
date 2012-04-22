@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious';
-#use Data::Dumper;
+use AnyEvent;
 
 #use Kirby::Scraper::SimpleScraper;
 
@@ -12,6 +12,12 @@ our $VERSION = "0.01";
 
 sub startup {
     my $self = shift;
+
+    my $timer = AnyEvent->timer(
+        after => 30,
+        interval => 3600,
+        cb => loopEvent;
+    );
 
     my $r = $self->routes;
 
@@ -52,6 +58,12 @@ sub startup {
     $self->defaults(navbarName => "Choose Your Destiny...");
     $self->defaults(tabs => undef );
     $self->defaults(usenetRSS => "http://findnzb.net/rss/?group=alt.binaries.pictures.comics.dcp&sort=newest" );
+}
+
+sub loopEvent {
+    my $self = shift;
+
+    $self->log->debug("loopEvent triggered");
 }
 
 1;
