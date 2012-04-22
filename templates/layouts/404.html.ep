@@ -17,15 +17,7 @@
         %= include 'assets/header'
         <div class="container-fluid">
             <div class="row-fluid">
-                % if (defined $navbar) {
-                %= include 'assets/nav'
-                <div class="span9">
-                % } else {
                 <div class="span12">
-                % };
-                    % if (defined $tabs) {
-                    %= include 'assets/tabs'
-                    % }
                     % if (flash 'error') {
                     <div class="alert alert-error fade in">
                         <a class="close" data-dismiss="alert">:(</a>
@@ -52,11 +44,9 @@
         </div>
         <script src="<%= url_for('js/jquery.js')->to_abs %>"></script>
         <script src="<%= url_for('js/bootstrap-alert.js')->to_abs %>" /></script>
-        <script src="<%= url_for('js/bootstrap-tab.js')->to_abs %>" /></script>
         <script>
             $(function () {
                 $('.alert').alert()
-                $('.tabs a:last').tab('show')
             })
         </script>
     </body>

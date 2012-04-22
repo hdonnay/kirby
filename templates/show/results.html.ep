@@ -1,0 +1,87 @@
+% layout 'default';
+%if (scalar(@{$desc})) {
+    <h3>Description Matches:</h3>
+    <div class="well">
+    % for my $id (@{$desc}) {
+        <div class="span1">
+            <img src="<%= url_for('/backend/cover.jpg') %>?id=<%= $id %>" />
+        </div>
+        <div class="span8">
+            &nbsp;<br />
+        </div>
+    % };
+    </div>
+% };
+
+%if (scalar(@{$titles})) {
+    <h3>Title Matches:</h3>
+    <div class="well">
+    % for my $id (@{$titles}) {
+        <div class="span1">
+            <img src="<%= url_for('/backend/cover.jpg') %>?id=<%= $id %>" />
+        </div>
+        <div class="span8">
+            &nbsp;<br />
+        </div>
+    % };
+    </div>
+% };
+
+%if (scalar(@{$series})) {
+    <h3>Series Matches:</h3>
+    <div class="well">
+    % for my $id (@{$series}) {
+        <div class="span1">
+            <img src="<%= url_for('/backend/cover.jpg') %>?id=<%= $id %>" />
+        </div>
+        <div class="span8">
+            &nbsp;<br />
+        </div>
+    % };
+    </div>
+% };
+
+%if (scalar(@{$available})) {
+    <h3>Available Matches:</h3>
+    <div class="well">
+    % for my $id (@{$available}) {
+        <div class="span1">
+            <img src="<%= url_for('/backend/cover.jpg') %>?id=<%= $id %>" />
+        </div>
+        <div class="span8">
+            &nbsp;<br />
+        </div>
+    % };
+    </div>
+% };
+
+% if ((not scalar(@{$desc})) and (not scalar(@{$titles})) and (not scalar(@{$series})) and (not scalar(@{$available}))) {
+    <div class="alert fade in">
+        <a class="close" data-dismiss="alert">×</a>
+        No results found
+    </div>
+% }
+<hr />
+
+<h3>debuggin'</h3>
+<pre>
+Description ID matches
+======================
+<%= dumper @{$desc} %>
+
+Titles ID matches
+=================
+<%= dumper @{$titles} %>
+
+Series ID matches
+==================
+<%= dumper @{$series} %>
+
+available ID matches
+====================
+<%= dumper @{$available} %>
+
+Self
+====
+<%= dumper $self->stash %>
+</pre>

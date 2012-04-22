@@ -1,1 +1,5 @@
 % layout 'default';
+<div class="hero-unit">
+    <div id="output">
+    </div>
+</div>

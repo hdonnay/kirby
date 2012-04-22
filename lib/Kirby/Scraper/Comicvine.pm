@@ -1,4 +1,4 @@
-package Kirby::Scraper::SimpleScraper;
+package Kirby::Scraper::Comicvine;
 
 use strict;
 use warnings;

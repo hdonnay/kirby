@@ -1,6 +1,0 @@
-{
-    "foo"               : "baz",
-    "comicsDirectory"   : "/export/Comics",
-    "listenPort"        : 3000,
-    "mode"              : "debug"
-}

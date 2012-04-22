@@ -1,5 +1,1 @@
-<%= link_to '/info' => begin %>
-Kirby -- The Usenet Comic Grabber
-%= tag 'br'
-Copyright 2011, released under a modified MIT license.
-<% end %>
+Copyright 2011, released under a modified MIT license. <div style="display:inline;float:right;"><a href="/about">About</a></div>

@@ -4,11 +4,9 @@ use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious';
-use FindBin;
-use Data::Dumper;
+#use Data::Dumper;
 
-use Kirby::Scraper::SimpleScraper;
-#use Kirby::Database;
+#use Kirby::Scraper::SimpleScraper;
 
 our $VERSION = "0.01";
 
@@ -16,71 +14,44 @@ sub startup {
     my $self = shift;
 
     my $r = $self->routes;
-    $self->plugin('Kirby::Database');
 
-    my $show = $r->route('/show')->to(controller => 'show');
-        $show->route('/issue/:id')->to(action => 'issue');
-        $show->route('/series/:title')->to(action => 'series');
-    $r->route('/dump')->to(controller => 'show', action => 'dump');
+    # Static boring stuff
+    my $static = $r->route('/')->to(controller => 'static');
+        $static->any('/')->to(action => 'index');
+        $static->any('/about')->to(action => 'about');
 
+    # Displaying db items
+    my $manage = $r->route('/manage')->to(controller => 'manage');
+        $manage->route('/')->to(action => 'all');
+        $manage->route('/issue/:id')->to(action => 'issue');
+        $manage->route('/series/:title')->to(action => 'series');
+        #$show->route('/results')->to(action => 'results');
+        $manage->route('/all')->to(action => 'all');
+
+    # configuration shit
     my $conf = $r->route('/config')->to(controller => 'config');
-        $conf->route('/load')->to(action => 'reload');
+        $conf->route('/')->to(action => 'dump');
         $conf->route('/dump')->to(action => 'dump');
+        $conf->route('/load')->to(action => 'reload');
         $conf->route('/load')->via('POST')->to(action => 'insert');
 
-    $r->any('/')->to('index#index');
+    $r->route('/search')->to(controller => 'search', action => 'search');
 
-    $r->any('/search' => sub {
-        my $self = shift;
-        my $q = $self->param('q') || undef;
-        if ( defined $q ) {
-            my @results = Kirby::Database->search(q => $q);
-
-            $self->flash(
-                message => "Results:",
-                results => \@results,
-            );
-            $self->redirect_to('search');
-        }
-        elsif ( defined 'flash' ) {
-            $self->render();
-        }
-        else {
-            $self->flash(message => "unsuccessful query",);
-            $self->redirect_to('search');
-        };
-    } => 'search');
-
-    $r->any('/add'  => sub {
-        my $self = shift;
-        my $series = $self->param('series') || undef;
-        my $volume = $self->param('vol') || undef;
-        my $issue = $self->param('issue') || undef;
-        my $title = $self->param('title') || 'N/A';
-        my $description = $self->param('desc') || 'N/A';
-        if ( (defined $series) and (defined $volume) and (defined $issue) ) {
-            my $comicID = Kirby::SQL::Kirby->create(
-                series => $series,
-                volume => $volume,
-                issue  => $issue,
-                title  => $title,
-                description => $description,
-            );
-            $self->render(
-                text => "Inserted $series $volume $issue",
-            );
-        }
-        else {
-            $self->render(
-                text => "Missing required fields",
-            );
-        };
-    });
-
-    $r->any('/info' => 'info');
+    # backend things.
+    my $backend = $r->route('/backend')->to(controller => 'backend');
+        $backend->route('/rss')->via('GET')->to(action => 'rssDump');
+        $backend->route('/rss')->via('POST')->to(action => 'rssRefresh');
+        $backend->route('/add')->via('GET')->to(action => 'lastAddState');
+        $backend->route('/add')->via('POST')->to(action => 'add');
+        $backend->route('/dbQuery')->via('GET')->to(action => 'dbQuery');
+        $backend->route('/cover.jpg')->to(action => 'cover');
 
     $self->secret('Kirby Default');
-    $self->defaults(config => $self->plugin('JSONConfig'), );
+    $self->defaults(config => $self->plugin(JSONConfig => {file => 'data/config.json'}) );
+    $self->defaults(navbar => [ ["Manage", "manage"], ["History", "history"], ["Config", "config"] ]);
+    $self->defaults(navbarName => "Choose Your Destiny...");
+    $self->defaults(tabs => undef );
+    $self->defaults(usenetRSS => "http://findnzb.net/rss/?group=alt.binaries.pictures.comics.dcp&sort=newest" );
 }
 
 1;
