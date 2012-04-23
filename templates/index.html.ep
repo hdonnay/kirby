@@ -1,5 +1,17 @@
 % layout 'default';
-<div class="hero-unit">
-    <div id="output">
+<div class="tab-content">
+    <div class="tab-pane active" id="1">
+        <div class="hero-unit">
+            <h1>One</h1>
+        </div>
+    </div>
+    <div class="tab-pane" id="2">
+        <h1>Two</h1>
+    </div>
+    <div class="tab-pane" id="3">
+        <h1>Three</h1>
+    </div>
+    <div class="tab-pane" id="4">
+        <h1>Fourth</h1>
     </div>
 </div>

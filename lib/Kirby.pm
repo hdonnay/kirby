@@ -4,20 +4,23 @@ use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious';
+#use AnyEvent::Loop;
 use AnyEvent;
-
-#use Kirby::Scraper::SimpleScraper;
 
 our $VERSION = "0.01";
 
 sub startup {
     my $self = shift;
 
-    my $timer = AnyEvent->timer(
-        after => 30,
-        interval => 3600,
-        cb => loopEvent;
+    $self->log->debug("before loop");
+    my $loop = AnyEvent->timer(
+        after => 5,
+        interval => 360,
+        cb => sub {
+            shift->log->debug("loop\n");
+        },
     );
+    $self->log->debug("after loop");
 
     my $r = $self->routes;
 

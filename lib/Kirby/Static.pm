@@ -12,10 +12,10 @@ sub index {
     my $self = shift;
 
     $self->stash(tabs => [
-            ["first tab", "#"],
-            ["second tab", "#"],
-            ["third tab", "#"],
-            ["fourth tab", "#"],
+            ["first tab", "#1"],
+            ["second tab", "#2"],
+            ["third tab", "#3"],
+            ["fourth tab", "#4"],
         ]);
 
     $self->render('index');
