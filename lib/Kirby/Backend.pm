@@ -8,6 +8,7 @@ use warnings;
 
 use Mojo::Base 'Mojolicious::Controller';
 use Mojo::JSON;
+use Mojo::UserAgent;
 use Kirby::Database;
 use XML::FeedPP;
 
@@ -31,6 +32,14 @@ sub rss {
 sub rssDump {
     my $self = shift;
 
+    my $ua = Mojo::UserAgent->new(max_redirects => 4);
+    my $res = $ua->get('http://feeds.feedburner.com/NewComicBooks')->res;
+
+    $self->stash(links => [$res->dom('item')->map(sub {
+                $_->description->text =~ m/<img src=\"(.+)\" (style=\".*\")? \/>/;
+                return [ $_->title->text, $_->link->text, $1];
+            })->each ] );
+    $self->render('debug');
 }
 
 sub rssRefresh {

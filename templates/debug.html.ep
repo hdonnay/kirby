@@ -1,0 +1,4 @@
+% layout 'default';
+<pre>
+<%= dumper stash %>
+</pre>

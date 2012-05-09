@@ -12,6 +12,15 @@ our $VERSION = "0.01";
 sub startup {
     my $self = shift;
 
+
+    $self->secret('Kirby Default');
+    $self->defaults(config => $self->plugin(JSONConfig => {file => 'data/config.json'}) );
+    #$self->plugin('digest_auth', allow => { 'Kirby' => $self->plugin(JSONConfig => {file => 'data/users.json'})});
+    $self->defaults(navbar => [ ["Manage", "manage"], ["History", "history"], ["Config", "config"] ]);
+    $self->defaults(navbarName => "Choose Your Destiny...");
+    $self->defaults(tabs => undef );
+    $self->defaults(usenetRSS => "http://findnzb.net/rss/?group=alt.binaries.pictures.comics.dcp&sort=newest" );
+
     $self->log->debug("before loop");
     my $loop = AnyEvent->timer(
         after => 5,
@@ -54,13 +63,6 @@ sub startup {
         $backend->route('/add')->via('POST')->to(action => 'add');
         $backend->route('/dbQuery')->via('GET')->to(action => 'dbQuery');
         $backend->route('/cover.jpg')->to(action => 'cover');
-
-    $self->secret('Kirby Default');
-    $self->defaults(config => $self->plugin(JSONConfig => {file => 'data/config.json'}) );
-    $self->defaults(navbar => [ ["Manage", "manage"], ["History", "history"], ["Config", "config"] ]);
-    $self->defaults(navbarName => "Choose Your Destiny...");
-    $self->defaults(tabs => undef );
-    $self->defaults(usenetRSS => "http://findnzb.net/rss/?group=alt.binaries.pictures.comics.dcp&sort=newest" );
 }
 
 sub loopEvent {
