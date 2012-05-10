@@ -15,7 +15,7 @@ sub index {
             ["first tab", "#1"],
             ["second tab", "#2"],
             ["third tab", "#3"],
-            ["fourth tab", "#4"],
+            ["New Comics", "#rss"],
         ]);
 
     $self->render('index');

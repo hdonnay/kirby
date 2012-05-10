@@ -57,7 +57,7 @@ sub startup {
 
     # backend things.
     my $backend = $r->route('/backend')->to(controller => 'backend');
-        $backend->route('/rss')->via('GET')->to(action => 'rssDump');
+        $backend->route('/rss')->via('GET')->to(action => 'rssToJSON');
         $backend->route('/rss')->via('POST')->to(action => 'rssRefresh');
         $backend->route('/add')->via('GET')->to(action => 'lastAddState');
         $backend->route('/add')->via('POST')->to(action => 'add');

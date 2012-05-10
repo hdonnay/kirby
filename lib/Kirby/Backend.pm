@@ -29,17 +29,16 @@ sub rss {
     });
 }
 
-sub rssDump {
+sub rssToJSON {
     my $self = shift;
 
     my $ua = Mojo::UserAgent->new(max_redirects => 4);
     my $res = $ua->get('http://feeds.feedburner.com/NewComicBooks')->res;
 
-    $self->stash(links => [$res->dom('item')->map(sub {
+    $self->render(json => [$res->dom('item')->map(sub {
                 $_->description->text =~ m/<img src=\"(.+)\" (style=\".*\")? \/>/;
                 return [ $_->title->text, $_->link->text, $1];
-            })->each ] );
-    $self->render('debug');
+            })->each, undef] );
 }
 
 sub rssRefresh {

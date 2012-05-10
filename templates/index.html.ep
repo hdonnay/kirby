@@ -11,7 +11,21 @@
     <div class="tab-pane" id="3">
         <h1>Three</h1>
     </div>
-    <div class="tab-pane" id="4">
-        <h1>Fourth</h1>
+    <div class="tab-pane" id="rss">
+        <script type="text/javascript">
+            var i;
+            var columns = 5;
+            var spanWidth = 2;
+            var json;
+            $.getJSON("<%= url_for('backend/rss')->to_abs%>", function(data){
+                json = data;
+                for (i=0; json[i] != null; i++) {
+                    if ((i%columns) == 0) { document.getElementById('output').innerHTML += "<div class=\"row-fluid\">"; };
+                    document.getElementById('output').innerHTML += "<div class=\"well span"+spanWidth+"\"><img src=\""+json[i][2]+"\" /><br/><a href=\""+json[i][1]+"\">"+json[i][0]+"</a></div>";
+                    if ((i%columns) == columns) { document.getElementById('output').innerHTML += "</div>"; };
+                };
+            });
+        </script>
+        <div id="output" style="text-align:center;"></div>
     </div>
 </div>
