@@ -2,9 +2,9 @@
         </li>
         % foreach my $pair (@{$tabs}) {
             % if ($pair->[0] eq $tabs->[0]->[0]) { # set the first tab active
-        <li class="active"><a href="<%= $pair->[1] %>" data-toggle="tab"><%= $pair->[0] %></a></li>
+            <li class="active <%= $pair->[2] or "" %>"><a href="<%= $pair->[1] %>"  data-toggle="tab"><%= $pair->[0] %></a></li>
             % } else {
-        <li><a href="<%= $pair->[1] %>" data-toggle="tab"><%= $pair->[0] %></a></li>
+            <li><a href="<%= $pair->[1] %>" class="<%= $pair->[2] or "" %>" data-toggle="tab"><%= $pair->[0] %></a></li>
             % };
         % };
     </ul>

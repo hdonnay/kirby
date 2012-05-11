@@ -19,7 +19,8 @@ sub startup {
     $self->defaults(navbar => [ ["Manage", "manage"], ["History", "history"], ["Config", "config"] ]);
     $self->defaults(navbarName => "Choose Your Destiny...");
     $self->defaults(tabs => undef );
-    $self->defaults(usenetRSS => "http://findnzb.net/rss/?group=alt.binaries.pictures.comics.dcp&sort=newest" );
+    $self->defaults(usenetRSS => 'http://www.nzbindex.nl/rss/?q=0-day&g[]=41&g[]=775&sort=agedesc&max=250&more=1' );
+    $self->defaults(comicsRSS => 'http://feeds.feedburner.com/NewComicBooks' );
 
     $self->log->debug("before loop");
     my $loop = AnyEvent->timer(
@@ -58,7 +59,7 @@ sub startup {
     # backend things.
     my $backend = $r->route('/backend')->to(controller => 'backend');
         $backend->route('/rss')->via('GET')->to(action => 'rssToJSON');
-        $backend->route('/rss')->via('POST')->to(action => 'rssRefresh');
+        $backend->route('/usenet')->via('GET')->to(action => 'usenetFetch');
         $backend->route('/add')->via('GET')->to(action => 'lastAddState');
         $backend->route('/add')->via('POST')->to(action => 'add');
         $backend->route('/dbQuery')->via('GET')->to(action => 'dbQuery');

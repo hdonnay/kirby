@@ -14,8 +14,8 @@ sub index {
     $self->stash(tabs => [
             ["first tab", "#1"],
             ["second tab", "#2"],
-            ["third tab", "#3"],
-            ["New Comics", "#rss"],
+            ["New Scene Releases", "#3", "scene"],
+            ["New Comics", "#rss", "rss"],
         ]);
 
     $self->render('index');

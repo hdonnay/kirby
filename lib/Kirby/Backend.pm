@@ -7,43 +7,42 @@ use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious::Controller';
-use Mojo::JSON;
+#use Mojo::JSON;
 use Mojo::UserAgent;
 use Kirby::Database;
-use XML::FeedPP;
-
-sub rss {
-    my $self = shift;
-
-    my $feed;
-
-    $self->on(message => sub {
-        if ($_[1] eq 'ehlo') {
-            $self->send("<h3>".$feed->title()."</h3>");
-            foreach my $item ( $feed->get_item() ) {
-                $self->send("<li><a href=\"".$item->link()."\">".$item->title()."</a></li>");
-            }
-        } elsif ($_[1] eq 'fetch') {
-            $feed = XML::FeedPP->new('http://www.comicvine.com/feeds/new_comics');
-     }
-    });
-}
 
 sub rssToJSON {
     my $self = shift;
 
     my $ua = Mojo::UserAgent->new(max_redirects => 4);
-    my $res = $ua->get('http://feeds.feedburner.com/NewComicBooks')->res;
+    my $res = $ua->get( $self->stash('comicsRSS') )->res;
 
     $self->render(json => [$res->dom('item')->map(sub {
-                $_->description->text =~ m/<img src=\"(.+)\" (style=\".*\")? \/>/;
-                return [ $_->title->text, $_->link->text, $1];
+                my $desc;
+                if ($self->stash('comicsRSS') eq "http://feeds.feedburner.com/NewComicBooks") {
+                    ($desc = $_->description->text) =~ s/a href=\"/a href=\"http:\/\/www.comicvine.com/g;
+                } else {
+                     $desc = $_->description->text;
+                };
+                return [ $_->title->text, $_->link->text, undef, $desc ];
             })->each, undef] );
 }
 
-sub rssRefresh {
+sub usenetFetch {
     my $self = shift;
 
+    my $ua = Mojo::UserAgent->new(max_redirects => 4);
+    my $res = $ua->get( $self->stash('usenetRSS') )->res;
+
+    $self->render(json => [$res->dom('item')->map(sub {
+                $_->title->text =~ m/0-day \(([0-9\-]+)\) w\/ PARs \[\d+\/\d+\] - \"?(.+).cb[rz]\"?.*/;
+                my @tokens = split(/ *\(|\) \(|\) */, $2);
+                if (defined $2) {
+                    return { rlsDate => $1, titleString => shift @tokens, year => shift @tokens, tags => \@tokens, link => $_->link->text };
+                } else {
+                    return;
+                };
+            })->each, undef] );
 }
 
 sub dbQuery {
