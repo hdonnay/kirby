@@ -1,24 +1,43 @@
-$('.scene').bind('click', function() {
+//$('#rssUpdate').click(fetchRSS());
+$('#usenetUpdate').click(function() {
+    $(this).html('Updating...').addClass('disabled');
+    $.post('backend/usenetDB', '', function(data) {
+        if (data['status'] == 200) {
+            $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-success').html('Updated!');
+            $('#3').prepend('<div class="alert alert-success fade in out"><a class="close" data-dismiss="alert">ok</a>'+data['changes']+' New Comics Added</div>');
+        } else if (data['status'] == 304) {
+            $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-success').html('No New Changes!');
+        } else {
+            $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-danger').html('Backend Error');
+        };
+        setTimeout(function() {
+            $('#usenetUpdate').addClass('btn-primary').removeClass('btn-success').html('Update');
+        }, 2000);
+    });
+});
+
+$('.scene').bind('click', function(){
     var i;
     var x;
-    $.getJSON("http://"+document.location.hostname+"/backend/usenet", function(data){
+    $.getJSON("http://"+document.location.hostname+"/backend/usenetDB.json", function(data){
         $('#usenetOutput').empty();
         for (i=0; data[i] != null; i++) {
-            $('#usenetOutput').append("<li id=\"li"+i+"\"><a href=\""+data[i]['link']+"\">" +data[i]['titleString']+"</a></li>");
-            if (data[i]['tags'] != null) {
+            var item = data[i];
+            $('#usenetOutput').append("<li id=\"li"+i+"\"><a href=\""+item['link']+"\">"+item['series']+"</a> #"+item['issue']+" ("+item['year']+")</li>");
+            if (item['tags'] != null) {
                 $('#li'+i).append("<ul id=\"ul"+i+"\"></ul>");
-                for (x in data[i]['tags']) {
-                    $('#ul'+i).append("<li>"+data[i]['tags'][x]+"</li>");
+                for (x in item['tags']) {
+                    $('#ul'+i).append("<li>"+item['tags'][x]+"</li>");
                 };
             };
         };
     });
 });
-$('.rss').bind('click', function() {
+$('.rss').bind('click', function(){
     var i;
     var columns = 2;
     var spanWidth = 4;
-    $.getJSON("http://"+document.location.hostname+"/backend/rss", function(data){
+    $.getJSON("http://"+document.location.hostname+"/backend/rss.json", function(data){
         $('#RSSoutput').empty();
         for (i=0; data[i] != null; i++) {
             if ((i%columns) == 0) { $('#RSSoutput').append("<div class=\"row-fluid\">"); };

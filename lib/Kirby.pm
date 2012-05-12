@@ -58,8 +58,10 @@ sub startup {
 
     # backend things.
     my $backend = $r->route('/backend')->to(controller => 'backend');
-        $backend->route('/rss')->via('GET')->to(action => 'rssToJSON');
-        $backend->route('/usenet')->via('GET')->to(action => 'usenetFetch');
+        $backend->route('/rss.json')->via('GET')->to(action => 'rssToJSON');
+        #$backend->route('/usenet')->via('GET')->to(action => 'usenetFetch');
+        $backend->route('/usenetDB.json')->via('GET')->to(action => 'usenetFetchFromDB');
+        $backend->route('/usenetDB')->via('POST')->to(action => 'usenetFetchAndStore');
         $backend->route('/add')->via('GET')->to(action => 'lastAddState');
         $backend->route('/add')->via('POST')->to(action => 'add');
         $backend->route('/dbQuery')->via('GET')->to(action => 'dbQuery');

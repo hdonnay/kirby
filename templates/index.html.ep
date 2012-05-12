@@ -9,6 +9,7 @@
         <h1>Two</h1>
     </div>
     <div class="tab-pane" id="3">
+        <div id="button"><button class="btn btn-primary pull-right" id="usenetUpdate">Update</button></div>
         <div id="usenetOutput">
             <h1>Loading...</h1>
             <div class="progress progress-striped active">
@@ -17,6 +18,7 @@
         </div>
     </div>
     <div class="tab-pane" id="rss">
+        <div><button class="btn btn-primary pull-right" id="rssUpdate">Update</button></div>
         <div id="RSSoutput">
             <h1>Loading...</h1>
             <div class="progress progress-striped active">
