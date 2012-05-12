@@ -12,9 +12,8 @@ sub index {
     my $self = shift;
 
     $self->stash(tabs => [
-            ["first tab", "#1"],
-            ["second tab", "#2"],
-            ["New Scene Releases", "#3", "scene"],
+            ["Welcome", "#1"],
+            ["New Scene Releases", "#usenet", "scene"],
             ["New Comics", "#rss", "rss"],
         ]);
 

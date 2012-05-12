@@ -4,6 +4,7 @@
         <title>Kirby Comic Grabber</title>
         %= stylesheet '/css/bootstrap.css'
         <script src="<%= url_for('js/jquery.js')->to_abs %>"></script>
+        <script src="<%= url_for('js/application.js')->to_abs %>" /></script>
         <style type="text/css">
           body {
             padding-top: 60px;
@@ -53,11 +54,6 @@
         </div>
         <script src="<%= url_for('js/bootstrap-alert.js')->to_abs %>" /></script>
         <script src="<%= url_for('js/bootstrap-tab.js')->to_abs %>" /></script>
-        <script>
-            $(function () {
-                $('.alert').alert()
-                $('.tabs a:last').tab('show')
-            })
-        </script>
+        <script src="<%= url_for('js/bootstrap-button.js')->to_abs %>" /></script>
     </body>
 </html>

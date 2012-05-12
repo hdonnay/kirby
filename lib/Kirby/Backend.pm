@@ -34,6 +34,7 @@ sub usenetFetchAndStore {
     #$dbh->do('CREATE TABLE nzb ( id INTEGER PRIMARY KEY, releaseDate TEXT, origYear TEXT, tags TEXT, series TEXT, issue INT, url TEXT );');
     my $self = shift;
     my $rowsAdded = 0;
+    my $SQLhits = 0;
     my $ua = Mojo::UserAgent->new(max_redirects => 4);
 
     my $res = $ua->get( $self->stash('usenetRSS') )->res;
@@ -42,8 +43,7 @@ sub usenetFetchAndStore {
             if (defined $2) {
                 my $hash = Digest::MD5->new->add($_->link->text)->hexdigest;
                 my @record = Kirby::Database::Nzb->select('where hash = ?', $hash);
-                if ( (not defined @record) or ($record[0]->hash ne $hash) ){
-                    print "SQL Miss\n";
+                if ( (not @record) or ($record[0]->hash ne $hash) ){
                     my @tokens = split(/ *\( *|\) *\(| *\) */, $2);
                     my @titleTok = split(' ', shift @tokens);
                     my $origYear = shift @tokens;
@@ -58,9 +58,8 @@ sub usenetFetchAndStore {
                         url => $_->link->text,
                     );
                     $rowsAdded++;
-                    print "SQL Insertion\n";
-                } else{
-                    print "SQL Hit\n";
+                } else {
+                    $SQLhits++;
                 };
             };
         })->each;
@@ -70,17 +69,18 @@ sub usenetFetchAndStore {
     } else {
         $self->render(json => {status => 200, changes => $rowsAdded});
     };
+    $self->app->log->debug("SQL hits: $SQLhits, SQL Additions: $rowsAdded");
 }
 
-sub usenetFetchFromDB {
+sub usenetToJSON {
     my $self = shift;
     my @returnList;
 
-    my $maxID = (Kirby::Database::Nzb->count) - 1;
-    my $minID = $maxID - 25;
+    my $maxID = (Kirby::Database::Nzb->count) - ($self->param('min') or 0)+1;
+    my $minID = $maxID - ($self->param('max') or 15);
 
     Kirby::Database::Nzb->iterate(
-        'WHERE id >= ? AND id <= ?', $minID, $maxID,
+        'WHERE id >= ? AND id <= ? ORDER BY id DESC', $minID, $maxID,
         sub {
             my @tags = split(',', $_->tags);
             push(@returnList, {
@@ -98,9 +98,35 @@ sub usenetFetchFromDB {
     $self->render(json => \@returnList);
 };
 
+sub historyToJSON {
+    #CREATE TABLE history ( id INTEGER PRIMARY KEY, time TEXT, name TEXT, issue INT, action TEXT );
+    my $self = shift;
+    my @returnList;
+
+    my $maxID = (Kirby::Database::History->count) - 1;
+    my $minID = $maxID - ($self->param('num') or 25);
+
+    Kirby::Database::History->iterate(
+        'WHERE id >= ? AND id <= ? ORDER BY id DESC', $minID, $maxID,
+        sub {
+            push(@returnList, {
+                    time => $_->time,
+                    name => $_->name,
+                    issue => $_->issue,
+                    action => $_->action,
+                });
+        }
+    );
+    push(@returnList, undef);
+
+    print Dumper(\@returnList);
+    $self->render(json => \@returnList);
+};
+
 sub dbQuery {
     my $self = shift;
 
+    my $q = $self->params('q');
 }
 
 sub cover {

@@ -1,22 +1,5 @@
-//$('#rssUpdate').click(fetchRSS());
-$('#usenetUpdate').click(function() {
-    $(this).html('Updating...').addClass('disabled');
-    $.post('backend/usenetDB', '', function(data) {
-        if (data['status'] == 200) {
-            $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-success').html('Updated!');
-            $('#3').prepend('<div class="alert alert-success fade in out"><a class="close" data-dismiss="alert">ok</a>'+data['changes']+' New Comics Added</div>');
-        } else if (data['status'] == 304) {
-            $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-success').html('No New Changes!');
-        } else {
-            $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-danger').html('Backend Error');
-        };
-        setTimeout(function() {
-            $('#usenetUpdate').addClass('btn-primary').removeClass('btn-success').html('Update');
-        }, 2000);
-    });
-});
-
-$('.scene').bind('click', function(){
+// Some worker functions
+$.fetchUsenet = function(min, max){
     var i;
     var x;
     $.getJSON("http://"+document.location.hostname+"/backend/usenetDB.json", function(data){
@@ -32,8 +15,9 @@ $('.scene').bind('click', function(){
             };
         };
     });
-});
-$('.rss').bind('click', function(){
+};
+
+$.fetchRSS = function(){
     var i;
     var columns = 2;
     var spanWidth = 4;
@@ -46,4 +30,28 @@ $('.rss').bind('click', function(){
             if ((i%columns) == columns) { $('RSSoutput').append("</div>"); };
         };
     });
+};
+// bind load
+$(fetchHistory(5));
+// bind clicks
+$('.rss').click($.fetchRSS());
+$('.scene').click($.fetchUsenet());
+$('#rssUpdate').click($.fetchRSS());
+$('#usenetUpdate').click(function() {
+    $(this).button('loading').button('toggle');
+    $.post('backend/usenetDB', '', function(data) {
+        if (data['status'] == 200) {
+            $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-success').button('reset');
+            $('#usenet').prepend('<div class="alert alert-success fade in out"><a class="close" data-dismiss="alert">ok</a>'+data['changes']+' New Comics Added</div>');
+        } else if (data['status'] == 304) {
+            $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-success').button('304');
+        } else {
+            $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-danger').button('o_O');
+        };
+        setTimeout(function() {
+            $('#usenetUpdate').addClass('btn-primary').removeClass('btn-success').button('reset').button('toggle');
+        }, 2000);
+        $.fetchUsenet();
+    });
 });
+

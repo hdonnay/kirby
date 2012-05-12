@@ -1,24 +1,49 @@
 % layout 'default';
 <div class="tab-content">
     <div class="tab-pane active" id="1">
-        <div class="hero-unit">
+        <div class="well">
             <h1>One</h1>
         </div>
-    </div>
-    <div class="tab-pane" id="2">
-        <h1>Two</h1>
-    </div>
-    <div class="tab-pane" id="3">
-        <div id="button"><button class="btn btn-primary pull-right" id="usenetUpdate">Update</button></div>
-        <div id="usenetOutput">
+        <div id="historyTable">
             <h1>Loading...</h1>
             <div class="progress progress-striped active">
                 <div class="bar" style="width: 100%;"></div>
             </div>
         </div>
     </div>
+    <div class="tab-pane" id="usenet">
+        <h1>Latest Usenet Postings</h1>
+        <div class="btn-toolbar pull-right">
+            <div class="btn-group">
+                <button class="btn btn-primary btn-mini" id="usenetUpdate"
+                    data-loading-text="Updating..."
+                    data-304-text="No New Updates"
+                    data-o_O-text="Backend Error"
+                    >Update</button>
+            </div>
+        </div>
+        <hr />
+        <div id="usenetOutput">
+            <h1>Loading...</h1>
+            <div class="progress progress-striped active">
+                <div class="bar" style="width: 100%;"></div>
+            </div>
+        </div>
+        <div class="pagination pagination-right">
+            <ul>
+                <li class="disabled"><a href="#usenetOutput" id="usenetPrev">&lt;</a></li>
+                <li ><a href="#usenetOutput" id="usenetNext">&gt;</a></li>
+            </ul>
+        </div>
+    </div>
     <div class="tab-pane" id="rss">
-        <div><button class="btn btn-primary pull-right" id="rssUpdate">Update</button></div>
+        <h1>New Releases from ComicVine</h1>
+        <div class="btn-toolbar pull-right">
+            <div class="btn-group">
+                <button class="btn btn-primary btn-mini" id="rssUpdate">Update</button>
+            </div>
+        </div>
+        <hr />
         <div id="RSSoutput">
             <h1>Loading...</h1>
             <div class="progress progress-striped active">

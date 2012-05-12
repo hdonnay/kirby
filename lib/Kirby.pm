@@ -22,15 +22,15 @@ sub startup {
     $self->defaults(usenetRSS => 'http://www.nzbindex.nl/rss/?q=0-day&g[]=41&g[]=775&sort=agedesc&max=250&more=1' );
     $self->defaults(comicsRSS => 'http://feeds.feedburner.com/NewComicBooks' );
 
-    $self->log->debug("before loop");
-    my $loop = AnyEvent->timer(
-        after => 5,
-        interval => 360,
-        cb => sub {
-            shift->log->debug("loop\n");
-        },
-    );
-    $self->log->debug("after loop");
+#    $self->log->debug("before loop");
+#    my $loop = AnyEvent->timer(
+#        after => 5,
+#        interval => 360,
+#        cb => sub {
+#            shift->log->debug("loop\n");
+#        },
+#    );
+#    $self->log->debug("after loop");
 
     my $r = $self->routes;
 
@@ -47,6 +47,10 @@ sub startup {
         #$show->route('/results')->to(action => 'results');
         $manage->route('/all')->to(action => 'all');
 
+    # History
+    my $history = $r->route('/history')->to(controller => 'history');
+        $history->route('/')->to(action => 'index');
+
     # configuration shit
     my $conf = $r->route('/config')->to(controller => 'config');
         $conf->route('/')->to(action => 'dump');
@@ -58,14 +62,19 @@ sub startup {
 
     # backend things.
     my $backend = $r->route('/backend')->to(controller => 'backend');
+        #JSON stuff
         $backend->route('/rss.json')->via('GET')->to(action => 'rssToJSON');
-        #$backend->route('/usenet')->via('GET')->to(action => 'usenetFetch');
-        $backend->route('/usenetDB.json')->via('GET')->to(action => 'usenetFetchFromDB');
+        $backend->route('/history.json')->via('GET')->to(action => 'historyToJSON');
+        $backend->route('/usenetDB.json')->via('GET')->to(action => 'usenetToJSON');
+        #Talk back
         $backend->route('/usenetDB')->via('POST')->to(action => 'usenetFetchAndStore');
+        $backend->route('/history/insert')->to(controller => 'history', action => 'insert');
+        #misc GET
+        $backend->route('/cover.jpg')->via('GET')->to(action => 'cover');
+        #unimplemented
         $backend->route('/add')->via('GET')->to(action => 'lastAddState');
         $backend->route('/add')->via('POST')->to(action => 'add');
         $backend->route('/dbQuery')->via('GET')->to(action => 'dbQuery');
-        $backend->route('/cover.jpg')->to(action => 'cover');
 }
 
 sub loopEvent {
