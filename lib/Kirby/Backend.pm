@@ -103,14 +103,15 @@ sub historyToJSON {
     my $self = shift;
     my @returnList;
 
-    my $maxID = (Kirby::Database::History->count) - 1;
+    my $maxID = Kirby::Database::History->count;
     my $minID = $maxID - ($self->param('num') or 25);
 
     Kirby::Database::History->iterate(
-        'WHERE id >= ? AND id <= ? ORDER BY id DESC', $minID, $maxID,
+        'WHERE id >= ? AND id < ? ORDER BY id DESC', $minID, $maxID,
         sub {
+            my @time = localtime($_->time);
             push(@returnList, {
-                    time => $_->time,
+                    time => "$time[2]:".sprintf("%02d",$time[1])." ".($time[4]+1)."/$time[3]",
                     name => $_->name,
                     issue => $_->issue,
                     action => $_->action,

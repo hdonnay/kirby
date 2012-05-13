@@ -23,7 +23,7 @@ $.fetchRSS = function(){
     var spanWidth = 4;
     $.getJSON("http://"+document.location.hostname+"/backend/rss.json", function(data){
         $('#RSSoutput').empty();
-        for (i=0; data[i] != null; i++) {
+        for (i=0; data[i] != null && i < 20; i++) {
             if ((i%columns) == 0) { $('#RSSoutput').append("<div class=\"row-fluid\">"); };
             $('#RSSoutput').append("<div class=\"well span"+spanWidth+"\"><b><a href=\""+data[i][1]+"\">"
                 +data[i][0]+"</a></b><hr/>"+data[i][3]+"</div>");
@@ -50,7 +50,7 @@ $('#usenetUpdate').click(function() {
         };
         setTimeout(function() {
             $('#usenetUpdate').addClass('btn-primary').removeClass('btn-success').button('reset').button('toggle');
-        }, 2000);
+        }, 5000);
         $.fetchUsenet();
     });
 });
