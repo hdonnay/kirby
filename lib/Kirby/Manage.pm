@@ -9,6 +9,18 @@ use warnings;
 use Mojo::Base 'Mojolicious::Controller';
 use Kirby::Database;
 
+sub index {
+    my $self = shift;
+
+    $self->stash(tabs => [
+            ["Local Comics", "#lc"],
+            ["View Filters", "#vf"],
+            ["Add Comics", "#add"],
+        ]);
+
+    return $self->render('manage/index');
+}
+
 sub issue {
     my $self = shift;
 

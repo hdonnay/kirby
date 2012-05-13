@@ -41,7 +41,7 @@ sub startup {
 
     # Displaying db items
     my $manage = $r->route('/manage')->to(controller => 'manage');
-        $manage->route('/')->to(action => 'all');
+        $manage->route('/')->to(action => 'index');
         $manage->route('/issue/:id')->to(action => 'issue');
         $manage->route('/series/:title')->to(action => 'series');
         #$show->route('/results')->to(action => 'results');

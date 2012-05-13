@@ -12,9 +12,10 @@ Wishlist
 --------
 
  * Hopefully someone more talented than I will step up to help with the design of the web interface.
- * The RSS interface needs to be constructed.
+   * Mostly the Javascript
  * The Scraper needs to be constructed.
  * Interoperabliity with large nzb indexing sites.
+ * Interoperabliity with sabNZBd.
 
 Dependencies
 ------------
@@ -23,7 +24,6 @@ Kirby requires the following things to run, as best as I can remember:
 
  * [Mojolicious](http://mojolicio.us/)
  * [ORLite](http://search.cpan.org/perldoc?ORLite)
- * [XML::FeedPP](http://search.cpan.org/perldoc?XML::FeedPP)
 
 And for development, these are probably also required:
 
@@ -37,7 +37,7 @@ Installation
 
 I assume you're installing this for development, because of the early stage this is in. The process should go something like this:
 
-    % sudo aptitude install liborlite-perl libxml-feedpp-perl
+    % sudo aptitude install liborlite-perl
     % sudo sh -c "curl -L cpanmin.us | perl - Mojolicious"
     % git clone https://github.com/hdonnay/kirby.git
 
@@ -49,7 +49,7 @@ Then,
 Copyright
 ---------
 
-    Copyright (C) 2011 by Henry Donnay
+    Copyright (C) 2011-2012 by Henry Donnay
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal

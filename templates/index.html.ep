@@ -1,9 +1,13 @@
 % layout 'default';
 <div class="tab-content">
     <div class="tab-pane active" id="1">
-        <div class="well">
-            <h1>One</h1>
+        <div class="hero-unit">
+            <h1>This is Kirby</h1>
+            <p>It's not done yet.</p>
+            <p>Contribute on <a href="https://github.com/hdonnay/kirby">github</a>!</p>
         </div>
+        <h5>Recent History</h5>
+        <hr />
         <div id="historyTable">
             <h1>Loading...</h1>
             <div class="progress progress-striped active">
@@ -12,7 +16,6 @@
         </div>
     </div>
     <div class="tab-pane" id="usenet">
-        <h1>Latest Usenet Postings</h1>
         <div class="btn-toolbar pull-right">
             <div class="btn-group">
                 <button class="btn btn-primary btn-mini" id="usenetUpdate"
@@ -22,6 +25,7 @@
                     >Update</button>
             </div>
         </div>
+        <h1>Latest Usenet Postings</h1>
         <hr />
         <div id="usenetOutput">
             <h1>Loading...</h1>
@@ -31,18 +35,18 @@
         </div>
         <div class="pagination pagination-right">
             <ul>
-                <li class="disabled"><a href="#usenetOutput" id="usenetPrev">&lt;</a></li>
-                <li ><a href="#usenetOutput" id="usenetNext">&gt;</a></li>
+                <li class="disabled" id="usenetPrevli"><a href="#" id="usenetPrev">&lt;</a></li>
+                <li ><a href="#" id="usenetNext">&gt;</a></li>
             </ul>
         </div>
     </div>
     <div class="tab-pane" id="rss">
-        <h1>New Releases from ComicVine</h1>
         <div class="btn-toolbar pull-right">
             <div class="btn-group">
                 <button class="btn btn-primary btn-mini" id="rssUpdate">Update</button>
             </div>
         </div>
+        <h1>New Releases from ComicVine</h1>
         <hr />
         <div id="RSSoutput">
             <h1>Loading...</h1>

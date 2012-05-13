@@ -1,16 +1,18 @@
 // Some worker functions
-$.fetchUsenet = function(min, max){
+$.fetchUsenet = function(offset){
+    if (!offset) var offset = 0;
     var i;
     var x;
-    $.getJSON("http://"+document.location.hostname+"/backend/usenetDB.json", function(data){
+    $.getJSON("http://"+document.location.hostname+"/backend/usenetDB.json?offset="+offset, function(data){
         $('#usenetOutput').empty();
+        $('#usenetOutput').append('<table class="table table-striped"><tbody id="outable"></tbody></table>');
         for (i=0; data[i] != null; i++) {
             var item = data[i];
-            $('#usenetOutput').append("<li id=\"li"+i+"\"><a href=\""+item['link']+"\">"+item['series']+"</a> #"+item['issue']+" ("+item['year']+")</li>");
+            $('#outable').append('<tr><td id="td'+i+'"><a href="'+item['link']+'">'+item['series']+'</a> #'+item['issue']+' ('+item['year']+')</td></tr>');
             if (item['tags'] != null) {
-                $('#li'+i).append("<ul id=\"ul"+i+"\"></ul>");
+                $('#td'+i).append('<div class="muted pull-right" id="sm'+i+'"></div>');
                 for (x in item['tags']) {
-                    $('#ul'+i).append("<li>"+item['tags'][x]+"</li>");
+                    $('#sm'+i).append(" "+item['tags'][x]+" ");
                 };
             };
         };
@@ -31,11 +33,23 @@ $.fetchRSS = function(){
         };
     });
 };
+var offset = 0;
 // bind load
 $(fetchHistory(5));
 // bind clicks
 $('.rss').click($.fetchRSS());
 $('.scene').click($.fetchUsenet());
+$('#usenetPrev').click(function() {
+    if (--offset <= 0) {
+        offset = 0;
+        $('#usenetPrevli').addClass('disabled');
+    };
+    $.fetchUsenet(offset);
+});
+$('#usenetNext').click(function() {
+    $('#usenetPrevli').removeClass('disabled');
+    $.fetchUsenet(++offset)
+});
 $('#rssUpdate').click($.fetchRSS());
 $('#usenetUpdate').click(function() {
     $(this).button('loading').button('toggle');

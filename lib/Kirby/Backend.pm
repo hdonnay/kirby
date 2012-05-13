@@ -76,8 +76,10 @@ sub usenetToJSON {
     my $self = shift;
     my @returnList;
 
-    my $maxID = (Kirby::Database::Nzb->count) - ($self->param('min') or 0)+1;
-    my $minID = $maxID - ($self->param('max') or 15);
+    my $offset = $self->param('offset') or 0;
+
+    my $maxID = (Kirby::Database::Nzb->count) - ($offset * 15);
+    my $minID = $maxID - 15;
 
     Kirby::Database::Nzb->iterate(
         'WHERE id >= ? AND id <= ? ORDER BY id DESC', $minID, $maxID,
