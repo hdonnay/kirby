@@ -24,6 +24,7 @@ Kirby requires the following things to run, as best as I can remember:
 
  * [Mojolicious](http://mojolicio.us/)
  * [ORLite](http://search.cpan.org/perldoc?ORLite)
+ * SQLite
 
 And for development, these are probably also required:
 
@@ -37,7 +38,7 @@ Installation
 
 I assume you're installing this for development, because of the early stage this is in. The process should go something like this:
 
-    % sudo aptitude install liborlite-perl
+    % sudo aptitude install liborlite-perl sqlite3
     % sudo sh -c "curl -L cpanmin.us | perl - Mojolicious"
     % git clone https://github.com/hdonnay/kirby.git
 
