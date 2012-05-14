@@ -45,10 +45,12 @@ $('#usenetPrev').click(function() {
         $('#usenetPrevli').addClass('disabled');
     };
     $.fetchUsenet(offset);
+    $('#pgNum').html('Page '+(offset+1));
 });
 $('#usenetNext').click(function() {
     $('#usenetPrevli').removeClass('disabled');
     $.fetchUsenet(++offset)
+    $('#pgNum').html('Page '+(offset+1));
 });
 $('#rssUpdate').click($.fetchRSS());
 $('#usenetUpdate').click(function() {
@@ -57,6 +59,7 @@ $('#usenetUpdate').click(function() {
         if (data['status'] == 200) {
             $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-success').button('reset');
             $('#usenet').prepend('<div class="alert alert-success fade in out"><a class="close" data-dismiss="alert">ok</a>'+data['changes']+' New Comics Added</div>');
+            $.fetchUsenet();
         } else if (data['status'] == 304) {
             $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-success').button('304');
         } else {
@@ -65,7 +68,6 @@ $('#usenetUpdate').click(function() {
         setTimeout(function() {
             $('#usenetUpdate').addClass('btn-primary').removeClass('btn-success').button('reset').button('toggle');
         }, 5000);
-        $.fetchUsenet();
     });
 });
 

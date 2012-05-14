@@ -23,12 +23,13 @@ sub index {
 
 sub insert {
     my $self = shift;
+    my %params = @_;
 
     Kirby::Database::History->create(
         time => time,
-        name => $self->param('name'),
-        issue => $self->param('issue'),
-        action => $self->param('action'),
+        name => ($params{'name'} or $self->param('name')),
+        issue => ($params{'name'} or $self->param('issue')),
+        action => ($params{'name'} or $self->param('action')),
     );
 
     return $self->render(json => {status => 200} );

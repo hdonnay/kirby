@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="tab-pane" id="mh">
-        <form class="form-inline">
+        <form ation='#rh' method='get' class="form-inline">
             <input type="text" class="input-xlarge" id="name" placeholder="Name">
             <input type="text" class="input-small" id="issue" placeholder="Issue">
             <label class="control-label" for="action">Action:</label>
@@ -17,25 +17,25 @@
                 <option>snatched</option>
                 <option>downloaded</option>
             </select>
-        </form>
-        <div class="form-actions">
-            <div class="pull-right">
-                <button class="btn btn-primary" data-loading-text="Submitting..." id="historySubmit">Submit</button>
-                <button class="btn" id="historyClear">Clear</button>
+            <div class="form-actions">
+                <div class="pull-right">
+                    <button class="btn btn-primary" data-loading-text="Submitting..." id="historySubmit">Submit</button>
+                    <button class="btn" id="historyClear">Clear</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 <script type="text/javascript">
-$(fetchHistory(25));
+$(fetchHistory(20));
 $('#historySubmit').click( function() {
-    var target = $(this);
+    if (!$('#name').val() || !$('#issue').val() || !$('#action').val()) { return false };
     target.button('loading').button('toggle');
     post = new Object();
     post.name = $('#name').val();
     post.issue = $('#issue').val();
     post.action = $('#action').val();
-    $.getJSON("http://"+document.location.hostname+"/backend/history/insert?name="+post['name']+'&issue='+post['issue']+'&action='+post['action'],
+    $.post("http://"+document.location.hostname+"/backend/history/insert", $.param(post),
         function(data){
             if (data['status'] == 200) {
                 target.button('reset').button('toggle');
@@ -46,5 +46,16 @@ $('#historySubmit').click( function() {
             };
         }
     );
+    setTimeout(fetchHistory(20), 400);
+    setTimeout(function() {
+        $('#name').val('');
+        $('#issue').val('');
+        $('#action').val('');
+    }, 600);
+});
+$('#historyClear').click( function() {
+    $('#name').val('');
+    $('#issue').val('');
+    $('#action').val('');
 });
 </script>

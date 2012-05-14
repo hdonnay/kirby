@@ -15,7 +15,7 @@ use Kirby::Database;
 sub rssToJSON {
     my $self = shift;
 
-    my $ua = Mojo::UserAgent->new(max_redirects => 4);
+    my $ua = Mojo::UserAgent->new;
     my $res = $ua->get( $self->stash('comicsRSS') )->res;
 
     $self->render(json => [$res->dom('item')->map(sub {
@@ -35,26 +35,34 @@ sub usenetFetchAndStore {
     my $self = shift;
     my $rowsAdded = 0;
     my $SQLhits = 0;
-    my $ua = Mojo::UserAgent->new(max_redirects => 4);
+    my $ua = Mojo::UserAgent->new;
 
     my $res = $ua->get( $self->stash('usenetRSS') )->res;
     $res->dom('item')->map(sub {
             $_->title->text =~ m/0-day \(([0-9\-]+)\) w\/ PARs \[\d+\/\d+\] - \"?(.+).cb[rz]\"?.*/;
             if (defined $2) {
-                my $hash = Digest::MD5->new->add($_->link->text)->hexdigest;
-                my @record = Kirby::Database::Nzb->select('where hash = ?', $hash);
-                if ( (not @record) or ($record[0]->hash ne $hash) ){
+                my @record = Kirby::Database::Nzb->select('where url = ?', $_->link->text);
+                if ( (not @record) or ($record[0]->url ne $_->link->text) ){
                     my @tokens = split(/ *\( *|\) *\(| *\) */, $2);
                     my @titleTok = split(' ', shift @tokens);
-                    my $origYear = shift @tokens;
+                    #catch various naming conventions
+                    my $origYear;
+                    if ($tokens[0] =~ m/[0-9]{4}/) {
+                        $origYear = shift @tokens;
+                    } elsif ($tokens[0] =~ m/of \d+/) {
+                        shift @tokens;
+                        $origYear = shift @tokens;
+                    } elsif ($tokens[0] eq 'c2c') {
+                        $origYear = $tokens[2];
+                        delete $tokens[2];
+                    };
 
-                   Kirby::Database::Nzb->create(
+                    Kirby::Database::Nzb->create(
                         releaseDate => $1,
                         origYear => $origYear,
                         tags => join(',', @tokens),
                         series => join(' ',@titleTok[0 .. $#titleTok-1]),
                         issue => $titleTok[-1],
-                        hash => $hash,
                         url => $_->link->text,
                     );
                     $rowsAdded++;
@@ -64,12 +72,11 @@ sub usenetFetchAndStore {
             };
         })->each;
 
-    if ($rowsAdded == 0) {
-       $self->render(json => {status => 304});
-    } else {
-        $self->render(json => {status => 200, changes => $rowsAdded});
-    };
     $self->app->log->debug("SQL hits: $SQLhits, SQL Additions: $rowsAdded");
+    if ($rowsAdded == 0) {
+       return $self->render(json => {status => 304});
+    };
+    return $self->render(json => {status => 200, changes => $rowsAdded});
 }
 
 sub usenetToJSON {
@@ -77,9 +84,10 @@ sub usenetToJSON {
     my @returnList;
 
     my $offset = $self->param('offset') or 0;
+    my $returnResults = 14; #meaning 15
 
-    my $maxID = (Kirby::Database::Nzb->count) - ($offset * 15);
-    my $minID = $maxID - 15;
+    my $maxID = (Kirby::Database::Nzb->count) - ($offset * $returnResults);
+    my $minID = $maxID - $returnResults;
 
     Kirby::Database::Nzb->iterate(
         'WHERE id >= ? AND id <= ? ORDER BY id DESC', $minID, $maxID,
@@ -109,11 +117,11 @@ sub historyToJSON {
     my $minID = $maxID - ($self->param('num') or 25);
 
     Kirby::Database::History->iterate(
-        'WHERE id >= ? AND id < ? ORDER BY id DESC', $minID, $maxID,
+        'WHERE id > ? AND id <= ? ORDER BY id DESC', $minID, $maxID,
         sub {
             my @time = localtime($_->time);
             push(@returnList, {
-                    time => "$time[2]:".sprintf("%02d",$time[1])." ".($time[4]+1)."/$time[3]",
+                    time => sprintf("%02d",$time[2]).":".sprintf("%02d",$time[1])." ".($time[4]+1)."/$time[3]",
                     name => $_->name,
                     issue => $_->issue,
                     action => $_->action,
@@ -122,7 +130,6 @@ sub historyToJSON {
     );
     push(@returnList, undef);
 
-    print Dumper(\@returnList);
     $self->render(json => \@returnList);
 };
 
@@ -135,7 +142,6 @@ sub dbQuery {
 sub cover {
     my $self = shift;
 
-    my $id = $self->param('id');
-    $self->render(data => Kirby::Database::Comics->select('cover WHERE id = ?', $id), format => 'image/jpeg');
+    $self->render(data => Kirby::Database::Comics->select('cover WHERE id = ?', $self->param('id')), format => 'image/jpeg');
 }
 1;

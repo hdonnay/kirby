@@ -1,6 +1,17 @@
 {
     "comicsDirectory"   : "/export/Comics",
     "listenPort"        : 3000,
+    "listenIP"          : "0.0.0.0",
     "mode"              : "debug",
+    "usenetResults"     : 10,
+    "historyResults"    : 10,
+    "sabnzbd"           : {
+        "httpauth"      : 0,
+        "httpuser"      : "",
+        "httppass"      : "",
+        "apikey"        : "",
+        "host"          : "localhost",
+        "port"          : 80
+    },
     "wmapikey"          : "fda89ace04f5226217fb61f7d4658a2d728e9e08"
 }
