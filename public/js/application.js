@@ -14,7 +14,7 @@ function fetchHistory(num, target) {
     if (!target) var target = $('#historyTable');
     var table = "fetchHistoryTable";
     var i;
-    $.getJSON("http://"+document.location.hostname+"/backend/history.json?num="+num, function(data){
+    $.getJSON("http://"+document.location.hostname+":"+document.location.port+"/backend/history.json?num="+num, function(data){
         target.empty();
         target.append('<table id="'+table+'" class="table table-striped"></table>');
         //$('#'+table).append('<caption class="pull-left"><h2>History</h2></caption>');

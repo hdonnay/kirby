@@ -3,7 +3,7 @@ $.fetchUsenet = function(offset){
     if (!offset) var offset = 0;
     var i;
     var x;
-    $.getJSON("http://"+document.location.hostname+"/backend/usenetDB.json?offset="+offset, function(data){
+    $.getJSON("http://"+document.location.hostname+":"+document.location.port+"/backend/usenetDB.json?offset="+offset, function(data){
         $('#usenetOutput').empty();
         $('#usenetOutput').append('<table class="table table-striped"><tbody id="outable"></tbody></table>');
         for (i=0; data[i] != null; i++) {
@@ -23,7 +23,7 @@ $.fetchRSS = function(){
     var i;
     var columns = 2;
     var spanWidth = 4;
-    $.getJSON("http://"+document.location.hostname+"/backend/rss.json", function(data){
+    $.getJSON("http://"+document.location.hostname+":"+document.location.port+"/backend/rss.json", function(data){
         $('#RSSoutput').empty();
         for (i=0; data[i] != null && i < 20; i++) {
             if ((i%columns) == 0) { $('#RSSoutput').append("<div class=\"row-fluid\">"); };
