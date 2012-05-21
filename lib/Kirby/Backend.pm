@@ -7,7 +7,7 @@ use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious::Controller';
-use Digest::MD5;
+use Switch 'Perl6';
 use Data::Dumper;
 use Mojo::UserAgent;
 use Kirby::Database;
@@ -35,48 +35,66 @@ sub usenetFetchAndStore {
     my $self = shift;
     my $rowsAdded = 0;
     my $SQLhits = 0;
+    my $fmt = 0;
+    my $i = 1;
     my $ua = Mojo::UserAgent->new;
+    my @regex = [
+        qr/0-day \(([0-9\-]+)\) w\/ PARs \[\d+\/\d+\] - \"?(.+)\.cb[rz]\"?.*/,
+        qr/Grab Bag ([0-9\.]+) \[\d+\/\d+\] - \"(.+)\.cb[rz]\".*/,
+    ];
 
     my $res = $ua->get( $self->stash('usenetRSS') )->res;
     $res->dom('item')->map(sub {
-            $_->title->text =~ m/0-day \(([0-9\-]+)\) w\/ PARs \[\d+\/\d+\] - \"?(.+).cb[rz]\"?.*/;
-            if (defined $2) {
-                my @record = Kirby::Database::Nzb->select('where url = ?', $_->link->text);
-                if ( (not @record) or ($record[0]->url ne $_->link->text) ){
-                    my @tokens = split(/ *\( *|\) *\(| *\) */, $2);
-                    my @titleTok = split(' ', shift @tokens);
+            my $item = shift;
+            my @record = Kirby::Database::Nzb->select('where url = ?', $_->link->text);
+            unless ( (@record) and ($record[0]->url eq $_->link->text) ) {
+                my @tags; my $rlsDate; my $origYear; my $series; my $issue; # need these for insertion
+                foreach (@regex) {
+                    if ($item->title->text =~ $_) { $fmt = $i }
+                    $i++;
+                }
+                # in these cases, you have the match variables from the regex that sets $fmt
+                # only using a goto because fucking switches wouldn't work
+PROCESSING:     if ($fmt == 2) {
+                    $1 =~ s/\./-/g;
+                    $fmt = 1;
+                    goto PROCESSING;
+                } elsif ($fmt == 1 ) {
+                    $rlsDate = $1;
+                    @tags = split(/ *\( *|\) *\(| *\) */, $2);
+                    my @titleTok = split(' ', shift @tags);
+                    if ($titleTok[-1] =~ m/\d/ ) {$issue = pop @titleTok};
+                    $series = join(' ', @titleTok);
                     #catch various naming conventions
-                    my $origYear;
-                    if ($tokens[0] =~ m/[0-9]{4}/) {
-                        $origYear = shift @tokens;
-                    } elsif ($tokens[0] =~ m/of \d+/) {
-                        shift @tokens;
-                        $origYear = shift @tokens;
-                    } elsif ($tokens[0] eq 'c2c') {
-                        $origYear = $tokens[2];
-                        delete $tokens[2];
-                    };
-
-                    Kirby::Database::Nzb->create(
-                        releaseDate => $1,
-                        origYear => $origYear,
-                        tags => join(',', @tokens),
-                        series => join(' ',@titleTok[0 .. $#titleTok-1]),
-                        issue => $titleTok[-1],
-                        url => $_->link->text,
-                    );
-                    $rowsAdded++;
-                } else {
-                    $SQLhits++;
+                    if ($tags[0] =~ m/[0-9]{4}/) { $origYear = shift @tags; }
+                    elsif($tags[0] =~ /of \d+/) { shift @tags; $origYear = shift @tags; }
+                    elsif($tags[0] eq "c2c") { $origYear = $tags[1]; delete $tags[1]; }
+                }
+                print Dumper {
+                    time => localtime(time),
+                    releaseDate => $rlsDate,
+                    origYear => $origYear,
+                    tags => join(',',@tags),
+                    series => $series,
+                    issue => $issue,
+                    url => $_->link->text,
                 };
-            };
+                Kirby::Database::Nzb->create(
+                    time => localtime(time),
+                    releaseDate => $rlsDate,
+                    origYear => $origYear,
+                    tags => join(',',@tags),
+                    series => $series,
+                    issue => $issue,
+                    url => $_->link->text,
+                );
+                $rowsAdded++;
+            } else {$SQLhits++}
         })->each;
 
     $self->app->log->debug("SQL hits: $SQLhits, SQL Additions: $rowsAdded");
-    if ($rowsAdded == 0) {
-       return $self->render(json => {status => 304});
-    };
-    return $self->render(json => {status => 200, changes => $rowsAdded});
+    if ($rowsAdded == 0) { return $self->render(json => {status => 304}); }
+    else { return $self->render(json => {status => 200, changes => $rowsAdded}); };
 }
 
 sub usenetToJSON {
@@ -86,14 +104,12 @@ sub usenetToJSON {
     my $offset = $self->param('offset') or 0;
     my $returnResults = 14; #meaning 15
 
-    my $maxID = (Kirby::Database::Nzb->count) - ($offset * $returnResults);
-    my $minID = $maxID - $returnResults;
-
     Kirby::Database::Nzb->iterate(
-        'WHERE id >= ? AND id <= ? ORDER BY id DESC', $minID, $maxID,
+        'ORDER BY time ASC LIMIT ? OFFSET ?', $returnResults, ($offset * $returnResults),
         sub {
             my @tags = split(',', $_->tags);
             push(@returnList, {
+                    time => time,
                     releaseDate => $_->releaseDate,
                     year => $_->origYear,
                     series => $_->series,
