@@ -7,7 +7,7 @@ use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious::Controller';
-use Switch 'Perl6';
+use Switch;
 use Data::Dumper;
 use Mojo::UserAgent;
 use Kirby::Database;
@@ -44,48 +44,50 @@ sub usenetFetchAndStore {
     ];
 
     my $res = $ua->get( $self->stash('usenetRSS') )->res;
+    if ($? != 0) {
+        $self->app->log->debug("Unable to fetch RSS feed.");
+        return $self->render(json => {status => 404});
+    }
+
     $res->dom('item')->map(sub {
             my $item = shift;
             my @record = Kirby::Database::Nzb->select('where url = ?', $_->link->text);
+            print "item link:  ".$_->link->text."\n";
+            print "record url: ".$record[0]->url."\n";
             unless ( (@record) and ($record[0]->url eq $_->link->text) ) {
-                my @tags; my $rlsDate; my $origYear; my $series; my $issue; # need these for insertion
+                my %attrs = ();
                 foreach (@regex) {
                     if ($item->title->text =~ $_) { $fmt = $i }
                     $i++;
                 }
                 # in these cases, you have the match variables from the regex that sets $fmt
                 # only using a goto because fucking switches wouldn't work
-PROCESSING:     if ($fmt == 2) {
-                    $1 =~ s/\./-/g;
-                    $fmt = 1;
-                    goto PROCESSING;
-                } elsif ($fmt == 1 ) {
-                    $rlsDate = $1;
-                    @tags = split(/ *\( *|\) *\(| *\) */, $2);
-                    my @titleTok = split(' ', shift @tags);
-                    if ($titleTok[-1] =~ m/\d/ ) {$issue = pop @titleTok};
-                    $series = join(' ', @titleTok);
+                if ($fmt == 2) { $1 =~ s/\./-/g; $fmt--; }
+                if ($fmt == 1) {
+                    $attrs{'rlsDate'} = $1;
+                    @{\$attrs{'tags'}} = split(/ *\( *|\) *\(| *\) */, $2);
+                    my @titleTok = split(' ', shift @{\$attrs{'tags'}});
+                    if ($titleTok[-1] =~ m/\d/ ) {$attrs{'issue'} = pop @titleTok};
+                    $attrs{'series'} = join(' ', @titleTok);
                     #catch various naming conventions
-                    if ($tags[0] =~ m/[0-9]{4}/) { $origYear = shift @tags; }
-                    elsif($tags[0] =~ /of \d+/) { shift @tags; $origYear = shift @tags; }
-                    elsif($tags[0] eq "c2c") { $origYear = $tags[1]; delete $tags[1]; }
+                    if ($attrs{'tags'}[0] =~ m/[0-9]{4}/) { $attrs{'origYear'} = shift @{\$attrs{'tags'}}; }
+                    elsif($attrs{'tags'}[0] =~ /of \d+/) { shift @{\$attrs{'tags'}}; $attrs{'origYear'} = shift @{\$attrs{'tags'}}; }
+                    elsif($attrs{'tags'}[0] eq "c2c") { $attrs{'origYear'} = $attrs{'tags'}[1]; delete $attrs{'tags'}[1]; }
                 }
-                print Dumper {
-                    time => localtime(time),
-                    releaseDate => $rlsDate,
-                    origYear => $origYear,
-                    tags => join(',',@tags),
-                    series => $series,
-                    issue => $issue,
-                    url => $_->link->text,
-                };
+                $self->app->log->debug("time => ".localtime(time));
+                $self->app->log->debug("releaseDate => $attrs{'rlsDate'}");
+                $self->app->log->debug("origYear => $attrs{'origYear'}");
+                $self->app->log->debug("tags => ".join(',',$attrs{'tags'}));
+                $self->app->log->debug("series => $attrs{'series'}");
+                $self->app->log->debug("issue => $attrs{'issue'}");
+                $self->app->log->debug("url => $_->link->text");
                 Kirby::Database::Nzb->create(
                     time => localtime(time),
-                    releaseDate => $rlsDate,
-                    origYear => $origYear,
-                    tags => join(',',@tags),
-                    series => $series,
-                    issue => $issue,
+                    releaseDate => $attrs{'rlsDate'},
+                    origYear => $attrs{'origYear'},
+                    tags => join(',',$attrs{'tags'}),
+                    series => $attrs{'series'},
+                    issue => $attrs{'issue'},
                     url => $_->link->text,
                 );
                 $rowsAdded++;

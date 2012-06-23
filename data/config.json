@@ -11,7 +11,7 @@
         "httppass"      : "",
         "apikey"        : "",
         "host"          : "localhost",
-        "port"          : 80
+        "port"          : 8088
     },
     "wmapikey"          : "fda89ace04f5226217fb61f7d4658a2d728e9e08"
 }

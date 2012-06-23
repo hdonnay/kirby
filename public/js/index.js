@@ -62,7 +62,10 @@ $('#usenetUpdate').click(function() {
             $.fetchUsenet();
         } else if (data['status'] == 304) {
             $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-success').button('304');
-        } else {
+        } else if (data['status'] == 404) {
+            $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-danger').button('reset');
+            $('#usenet').prepend('<div class="alert alert-danger fade in out"><a class="close" data-dismiss="alert">D:</a>Unable to retrieve RSS Feed</div>');
+        }else {
             $('#usenetUpdate').removeClass('disabled btn-primary').addClass('btn-danger').button('o_O');
         };
         setTimeout(function() {
