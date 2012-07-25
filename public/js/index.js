@@ -8,7 +8,8 @@ $.fetchUsenet = function(offset){
         $('#usenetOutput').append('<table class="table table-striped"><tbody id="outable"></tbody></table>');
         for (i=0; data[i] != null; i++) {
             var item = data[i];
-            $('#outable').append('<tr><td id="td'+i+'"><a href="'+item['link']+'">'+item['series']+'</a> #'+item['issue']+' ('+item['year']+')</td></tr>');
+            $('#outable').append('<tr><td id="td'+i+'"><a href="http://'+document.location.hostname+':'+document.location.port+
+                '/backend/download?q='+encodeURIComponent(item['link'])+'">'+item['series']+'</a> #'+item['issue']+' ('+item['year']+')</td></tr>');
             if (item['tags'] != null) {
                 $('#td'+i).append('<div class="muted pull-right" id="sm'+i+'"></div>');
                 for (x in item['tags']) {

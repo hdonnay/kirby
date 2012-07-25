@@ -7,6 +7,7 @@ use strict;
 use warnings;
 
 use Mojo::UserAgent;
+use Mojo::Util qw/url_escape/;
 use Mojo::JSON;
 
 sub new {
@@ -20,7 +21,7 @@ sub new {
     );
     my %object = (%defaults, %args);
 
-    if ($auth ne '') {
+    if ($object{'auth'} ne '') {
         $object{'baseUrl'} =~ s/^(https?:\/\/)//;
         $object{'url'} = "$1$object{'auth'}\@$object{'baseUrl'}/api?apikey=$object{'api'}";
     } else {
@@ -35,8 +36,10 @@ sub send {
     my $self = shift;
     my $nzb = shift;
 
-    my $q = "$self->{'url'}&mode=addlocalfile&name=$nzb&category=Comics&priority=-1";
-    $self->{'ua'}->post($q);
+    my $q = "$self->{'url'}&mode=addurl&name=".url_escape($nzb)."&category=Comics&priority=-1";
+    return $self->{'ua'}->get($q)->res->body;
+}
+sub markDownloaded {
 }
 
 1;

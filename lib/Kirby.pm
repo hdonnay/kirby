@@ -43,6 +43,7 @@ sub startup {
         $manage->route('/issue/:id')->to(action => 'issue');
         $manage->route('/series/:title')->to(action => 'series');
         $manage->route('/all')->to(action => 'all');
+        $manage->route('/nzb')->to(action => 'nzb');
 
     # History
     my $history = $r->route('/history')->to(controller => 'history');
@@ -66,11 +67,11 @@ sub startup {
         #Talk back
         $backend->route('/usenetDB')->via('POST')->to(action => 'usenetFetchAndStore');
         $backend->route('/history/insert')->via('POST')->to(controller => 'history', action => 'insert');
+        $backend->route('/download')->to(action => 'download');
         #misc GET
         $backend->route('/cover.jpg')->via('GET')->to(action => 'cover');
         #unimplemented
         $backend->route('/add')->via('GET')->to(action => 'lastAddState');
-        $backend->route('/add')->via('POST')->to(action => 'add');
         $backend->route('/dbQuery')->via('GET')->to(action => 'dbQuery');
 }
 

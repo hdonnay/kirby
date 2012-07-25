@@ -59,4 +59,11 @@ sub all {
     $self->render('show/all');
 }
 
+sub nzb {
+    my $self = shift;
+
+    $self->stash(results => [Kirby::Database::Nzb->select('order by time')],);
+    $self->render('show/all');
+}
+
 1;
