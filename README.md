@@ -8,6 +8,14 @@ Basics
 
 Kirby is written in perl, based on the [Mojolicious](http://mojolicio.us/) framework.
 
+TODO
+----
+
+ * Better interoperabliity with sabNZBd.
+   * post processing script, spin off the API wrapper
+ * Travis-ci / proper Makefile.PL
+ * Documentation
+
 Wishlist
 --------
 
@@ -15,7 +23,6 @@ Wishlist
    * Mostly the Javascript
  * The Scraper needs to be constructed.
  * Interoperabliity with large nzb indexing sites.
- * Interoperabliity with sabNZBd.
 
 Dependencies
 ------------
@@ -24,7 +31,7 @@ Kirby requires the following things to run, as best as I can remember:
 
  * [Mojolicious](http://mojolicio.us/)
  * [ORLite](http://search.cpan.org/perldoc?ORLite)
- * SQLite
+ * [SQLite](http://www.sqlite.org/)
 
 And for development, these are probably also required:
 
